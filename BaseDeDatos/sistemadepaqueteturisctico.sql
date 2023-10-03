@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-10-2023 a las 17:01:17
+-- Tiempo de generación: 03-10-2023 a las 16:56:48
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `sistemadepaqueteturistico`
+-- Base de datos: `sistemadepaqueteturisctico`
 --
 
 -- --------------------------------------------------------
@@ -49,6 +49,21 @@ CREATE TABLE `ciudad` (
   `pais` varchar(60) NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `provincia` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cliente`
+--
+
+CREATE TABLE `cliente` (
+  `idCliente` int(11) NOT NULL,
+  `nombre` varchar(60) NOT NULL,
+  `apellido` varchar(60) NOT NULL,
+  `telefono` int(11) NOT NULL,
+  `dni` int(11) NOT NULL,
+  `idPaquete` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -97,6 +112,14 @@ ALTER TABLE `ciudad`
   ADD PRIMARY KEY (`idCiudad`);
 
 --
+-- Indices de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`idCliente`),
+  ADD UNIQUE KEY `dni` (`dni`),
+  ADD KEY `idPaquete` (`idPaquete`);
+
+--
 -- Indices de la tabla `paquete`
 --
 ALTER TABLE `paquete`
@@ -130,6 +153,12 @@ ALTER TABLE `ciudad`
   MODIFY `idCiudad` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `paquete`
 --
 ALTER TABLE `paquete`
@@ -150,6 +179,12 @@ ALTER TABLE `pasaje`
 --
 ALTER TABLE `alojamiento`
   ADD CONSTRAINT `alojamiento_ibfk_1` FOREIGN KEY (`idCiuDestino`) REFERENCES `ciudad` (`idCiudad`);
+
+--
+-- Filtros para la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`idPaquete`) REFERENCES `paquete` (`idPaquete`);
 
 --
 -- Filtros para la tabla `paquete`
