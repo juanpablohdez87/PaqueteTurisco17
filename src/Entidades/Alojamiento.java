@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Entidades;
 
 import java.time.LocalDate;
@@ -12,35 +7,35 @@ import java.time.LocalDate;
  * @author Juan
  */
 public class Alojamiento {
-    
+
     private int idAlojamiento;
+    private Ciudad ciuDestino;
     private LocalDate fechaIngreso;
     private LocalDate fechaSalida;
-    private boolean estado;
     private String servicio;//Pueder enum
     private double importeDiario;
-    private Ciudad ciuDestino;
+    private boolean estado;
 
     public Alojamiento() {
     }
 
-    public Alojamiento(LocalDate fechaIngreso, LocalDate fechaSalida, boolean estado, String servicio, double importeDiario, Ciudad ciuDestino) {
+    public Alojamiento(Ciudad ciuDestino, LocalDate fechaIngreso, LocalDate fechaSalida, String servicio, double importeDiario, boolean estado) {
+        this.ciuDestino = ciuDestino;
         this.fechaIngreso = fechaIngreso;
         this.fechaSalida = fechaSalida;
-        this.estado = estado;
         this.servicio = servicio;
         this.importeDiario = importeDiario;
-        this.ciuDestino = ciuDestino;
+        this.estado = estado;
     }
 
-    public Alojamiento(int idAlojamiento, LocalDate fechaIngreso, LocalDate fechaSalida, boolean estado, String servicio, double importeDiario, Ciudad ciuDestino) {
+    public Alojamiento(int idAlojamiento, Ciudad ciuDestino, LocalDate fechaIngreso, LocalDate fechaSalida, String servicio, double importeDiario, boolean estado) {
         this.idAlojamiento = idAlojamiento;
+        this.ciuDestino = ciuDestino;
         this.fechaIngreso = fechaIngreso;
         this.fechaSalida = fechaSalida;
-        this.estado = estado;
         this.servicio = servicio;
         this.importeDiario = importeDiario;
-        this.ciuDestino = ciuDestino;
+        this.estado = estado;
     }
 
     public int getIdAlojamiento() {
@@ -49,6 +44,14 @@ public class Alojamiento {
 
     public void setIdAlojamiento(int idAlojamiento) {
         this.idAlojamiento = idAlojamiento;
+    }
+
+    public Ciudad getCiuDestino() {
+        return ciuDestino;
+    }
+
+    public void setCiuDestino(Ciudad ciuDestino) {
+        this.ciuDestino = ciuDestino;
     }
 
     public LocalDate getFechaIngreso() {
@@ -67,14 +70,6 @@ public class Alojamiento {
         this.fechaSalida = fechaSalida;
     }
 
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
     public String getServicio() {
         return servicio;
     }
@@ -91,19 +86,17 @@ public class Alojamiento {
         this.importeDiario = importeDiario;
     }
 
-    public Ciudad getCiuDestino() {
-        return ciuDestino;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setCiuDestino(Ciudad ciuDestino) {
-        this.ciuDestino = ciuDestino;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @Override
     public String toString() {
-        return "Alojamiento{" + "idAlojamiento=" + idAlojamiento + ", fechaIngreso=" + fechaIngreso + ", fechaSalida=" + fechaSalida + ", estado=" + estado + ", servicio=" + servicio + ", importeDiario=" + importeDiario + ", ciuDestino=" + ciuDestino + '}';
+        return "Alojamiento{" + "idAlojamiento=" + idAlojamiento + ", ciuDestino=" + ciuDestino + ", fechaIngreso=" + fechaIngreso + ", fechaSalida=" + fechaSalida + ", servicio=" + servicio + ", importeDiario=" + importeDiario + ", estado=" + estado + '}';
     }
-    
-            
-    
+
 }
