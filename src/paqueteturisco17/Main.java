@@ -1,9 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package paqueteturisco17;
+
+import Datos.CiudadDatos;
+import Entidades.Ciudad;
+import java.util.List;
 
 /**
  *
@@ -11,11 +10,14 @@ package paqueteturisco17;
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+//        Ciudad c = new Ciudad("General Belgrano", "Republica de Cordoba", true, "Cordoba de Anda Lucia");
+//        Ciudad ab = new Ciudad(2, "Guiñazu", "Republica de Cordoba", true, "Cordoba de Anda Lucia");
+        Ciudad m = CiudadDatos.buscarCiudad("General Belgrano");
+        System.out.println("id = " + m.getIdCiudad());
+//        CiudadDatos.modificarCiudad(ab);
+//         List<Ciudad> lista = CiudadDatos.listarCiu();
+//        CiudadDatos.ciudadGuardar(ab);
     }
-    
+
 }
