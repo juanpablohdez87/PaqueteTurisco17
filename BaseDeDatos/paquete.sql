@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2023 a las 16:56:48
+-- Tiempo de generación: 05-10-2023 a las 17:07:08
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `sistemadepaqueteturisctico`
+-- Base de datos: `sistemadepaqueteturistico`
 --
 
 -- --------------------------------------------------------
@@ -29,13 +29,22 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `alojamiento` (
   `idAlojamiento` int(11) NOT NULL,
+  `idCiuDestino` int(11) NOT NULL,
   `fechaIngreso` date NOT NULL,
   `fechaSalida` date DEFAULT NULL,
-  `estado` tinyint(4) NOT NULL,
-  `servicio` varchar(60) NOT NULL,
+  `servicio` varchar(120) NOT NULL,
   `importeDiario` double NOT NULL,
-  `idCiuDestino` int(11) NOT NULL
+  `estado` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `alojamiento`
+--
+
+INSERT INTO `alojamiento` (`idAlojamiento`, `idCiuDestino`, `fechaIngreso`, `fechaSalida`, `servicio`, `importeDiario`, `estado`) VALUES
+(2, 3, '2023-10-24', '2023-12-18', 'Servicio Completo', 1000, 0),
+(3, 4, '2023-11-15', '2023-12-25', 'Servicio Completo', 990.9, 1),
+(4, 1, '2024-01-21', '2024-02-26', 'Servicio Completo', 759.6, 1);
 
 -- --------------------------------------------------------
 
@@ -51,6 +60,16 @@ CREATE TABLE `ciudad` (
   `provincia` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `ciudad`
+--
+
+INSERT INTO `ciudad` (`idCiudad`, `nombre`, `pais`, `estado`, `provincia`) VALUES
+(1, 'Guiñazu', 'Republica de Cordoba', 1, 'Cordoba de Anda Lucia'),
+(2, 'General Belgrano', 'Republica de Cordoba', 1, 'Cordoba de Anda Lucia'),
+(3, 'Buzio', 'Brasil', 1, 'Rio de Janeiro'),
+(4, 'Valparaiso', 'Chile', 1, 'Valparaiso');
+
 -- --------------------------------------------------------
 
 --
@@ -59,8 +78,8 @@ CREATE TABLE `ciudad` (
 
 CREATE TABLE `cliente` (
   `idCliente` int(11) NOT NULL,
-  `nombre` varchar(60) NOT NULL,
-  `apellido` varchar(60) NOT NULL,
+  `nombre` int(60) NOT NULL,
+  `apellido` int(60) NOT NULL,
   `telefono` int(11) NOT NULL,
   `dni` int(11) NOT NULL,
   `idPaquete` int(11) NOT NULL
@@ -144,13 +163,13 @@ ALTER TABLE `pasaje`
 -- AUTO_INCREMENT de la tabla `alojamiento`
 --
 ALTER TABLE `alojamiento`
-  MODIFY `idAlojamiento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAlojamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `ciudad`
 --
 ALTER TABLE `ciudad`
-  MODIFY `idCiudad` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCiudad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`

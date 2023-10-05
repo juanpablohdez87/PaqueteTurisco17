@@ -21,7 +21,7 @@ public class PasajeDatos {
     private static ResultSet rs = null;
 
     public static void guardarPasaje(Pasaje pas,String ciudad) {
-        String sqlCrear="insert into pasaje(Transporte,importe,idCiuOrigen,estado)values(?,?,?,?)";
+        String sqlCrear="insert into pasaje(tipoTransporte,importe,idCiuOrigen,estado)values(?,?,?,?)";
         try {
             Ciudad c=CiudadDatos.buscarCiudad(ciudad);
             ps=con.prepareStatement(sqlCrear,Statement.RETURN_GENERATED_KEYS);
@@ -62,7 +62,7 @@ public class PasajeDatos {
 
     public static void modificarPasaje(Pasaje pas,int idC) {
               // estado para que lo modifique de false a true, por el hecho de q si algún cliente cambia de opinión
-        String sqlActualizar = "update pasaje set Transporte = ?, idCiuOrigen = ?, importe = ?,estado=? where idPasaje = ?";
+        String sqlActualizar = "update pasaje set tipoTransporte = ?, idCiuOrigen = ?, importe = ?,estado=? where idPasaje = ?";
         try {
             ps=con.prepareStatement(sqlActualizar);
            
@@ -87,9 +87,8 @@ public class PasajeDatos {
     }
 
     public static Pasaje buscarPasaje(int id) {
-          String sqlBusqueda="select Transporte,idCiuOrigen,importe from pasaje where idPasaje=? and estado=1";
-          Pasaje pasaje = new Pasaje();
-          
+          String sqlBusqueda="select tipoTransporte,idCiuOrigen,importe from pasaje where idPasaje=? and estado=1";
+          Pasaje pasaje = new Pasaje();         
         try {
             ps=con.prepareStatement(sqlBusqueda);
             ps.setInt(1, id);
@@ -97,7 +96,7 @@ public class PasajeDatos {
             if(rs.next()){
                 pasaje.setIdPasaje(id);
                 //lo que traiga el rs me lo guardo en una variable
-                String tipoTransporteStr = rs.getString("Transporte");
+                String tipoTransporteStr = rs.getString("tipoTransporte");
                 //el valueOf sirve para comparar el valor de la cadena con los valores del enum
                 Transporte tipoTransporte = Transporte.valueOf(tipoTransporteStr);
                 pasaje.setTipoTransporte(tipoTransporte);
@@ -123,7 +122,7 @@ public class PasajeDatos {
             while(rs.next()){
                 Pasaje pasaje=new Pasaje();
                 pasaje.setIdPasaje(rs.getInt("idPasaje"));
-                String tipoTransporteStr = rs.getString("Transporte");
+                String tipoTransporteStr = rs.getString("tipoTransporte");
                 Transporte tipoTransporte = Transporte.valueOf(tipoTransporteStr);
                 pasaje.setTipoTransporte(tipoTransporte);
                 pasaje.setImporte(rs.getDouble("importe"));

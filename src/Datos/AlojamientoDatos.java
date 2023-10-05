@@ -1,12 +1,14 @@
 package Datos;
 
 import Entidades.Alojamiento;
+import Entidades.Ciudad;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -95,11 +97,66 @@ public class AlojamientoDatos {
 
     }
 
-    public static Alojamiento buscarAlojamiento(String ciuDestino) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public static Alojamiento buscarAlojamiento(int id) {
+        
+        String sql ="select idCiuDestino, fechaIngreso , fechaSalida , servicio , importeDiario  from alojamiento where idAlojamiento = ? and estado= 1";
+        Alojamiento alo = new Alojamiento();
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Ciudad ciudad = CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuDestino"));
+                alo.setIdAlojamiento(id);
+                alo.setCiuDestino(ciudad);
+                alo.setFechaIngreso(rs.getDate("fechaIngreso").toLocalDate());
+                alo.setFechaSalida(rs.getDate("fechaSalida").toLocalDate());
+                alo.setServicio(rs.getString("servicio"));
+                alo.setImporteDiario(rs.getDouble("importeDiario"));
+                alo.setEstado(true);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Alojamiento no esta activo o no existe");
+            }
+            ps.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceso de datos Alojamiento"+e.getMessage());
+        }
+        return alo;
+        
+
     }
 
-    public static List<Alojamiento> listaAlo() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public static List<Alojamiento> listaAlojamientos() {
+        List<Alojamiento> listaAlo = new ArrayList<>();
+        String sql = "select * from alojamiento";
+
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Alojamiento alo = new Alojamiento();
+                Ciudad ciudad = CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuDestino"));
+                alo.setIdAlojamiento(rs.getInt("idAlojamiento"));
+                alo.setCiuDestino(ciudad);
+                alo.setFechaIngreso(rs.getDate("fechaIngreso").toLocalDate());
+                alo.setFechaSalida(rs.getDate("fechaSalida").toLocalDate());
+                alo.setServicio(rs.getString("servicio"));
+                alo.setImporteDiario(rs.getDouble("importeDiario"));
+                alo.setEstado(rs.getBoolean("estado"));
+
+                listaAlo.add(alo);
+            }
+            ps.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceso de datos Alojamiento" + e.getMessage());
+        }
+        for (Alojamiento aloj : listaAlo) {
+            System.out.println(aloj.toString());
+        }
+        return listaAlo;
     }
 }

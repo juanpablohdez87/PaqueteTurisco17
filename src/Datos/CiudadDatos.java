@@ -93,7 +93,6 @@ public class CiudadDatos {
 
     public static void eliminarCiudad(int id) {
         String sql = "update ciudad set estado = 0 where idCiudad = ?";
-
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -110,9 +109,9 @@ public class CiudadDatos {
     }
 
     public static void modificarCiudad(Ciudad ciudad) {
- 
+
         String sql = "update ciudad set nombre = ?, pais = ?, provincia = ? where idCiudad = ?";
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, ciudad.getNombre());
@@ -130,8 +129,8 @@ public class CiudadDatos {
             JOptionPane.showMessageDialog(null, "Error al acceso a la tabla Ciudad " + ex.getMessage());
         }
     }
-     public static Ciudad buscarCiudadPorId(int id) {
 
+    public static Ciudad buscarCiudadPorId(int id) {
         String sql = "select nombre,provincia,pais,estado from ciudad where idCiudad = ? and estado = 1";
         Ciudad ciu = new Ciudad();
 
@@ -144,18 +143,17 @@ public class CiudadDatos {
                 ciu.setNombre(rs.getString("nombre"));
                 ciu.setProvincia(rs.getString("provincia"));
                 ciu.setPais(rs.getString("pais"));
-                ciu.setEstado(rs.getBoolean("estado"));//no sé por qué trae problemas al agregarle rs.getBoolean("estado). Si comentan esta linea el estado se los trae como false
-
+                ciu.setEstado(rs.getBoolean("estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "La ciudad no está activa o no existe");
             }
             ps.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ciudad "+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ciudad " + e.getMessage());
         }
         return ciu;
 
     }
-    
+
 }
