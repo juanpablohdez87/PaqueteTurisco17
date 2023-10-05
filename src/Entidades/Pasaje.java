@@ -11,7 +11,7 @@ package Entidades;
  */
 public class Pasaje {
     private int idPasaje;
-    private String tipoTransporte;//prodria ser con herencia
+    private Transporte tipoTransporte;//prodria ser con herencia
     private double importe;
     private Ciudad nomCiuOrigen;
     private boolean estado;
@@ -19,14 +19,14 @@ public class Pasaje {
     public Pasaje() {
     }
 
-    public Pasaje(String tipoTransporte, double importe, Ciudad nomCiuOrigen, boolean estado) {
+    public Pasaje(Transporte tipoTransporte, double importe, Ciudad nomCiuOrigen, boolean estado) {
         this.tipoTransporte = tipoTransporte;
         this.importe = importe;
         this.nomCiuOrigen = nomCiuOrigen;
         this.estado = estado;
     }
 
-    public Pasaje(int idPasaje, String tipoTransporte, double importe, Ciudad nomCiuOrigen, boolean estado) {
+    public Pasaje(int idPasaje, Transporte tipoTransporte, double importe, Ciudad nomCiuOrigen, boolean estado) {
         this.idPasaje = idPasaje;
         this.tipoTransporte = tipoTransporte;
         this.importe = importe;
@@ -42,11 +42,11 @@ public class Pasaje {
         this.idPasaje = idPasaje;
     }
 
-    public String getTipoTransporte() {
+    public Transporte getTipoTransporte() {
         return tipoTransporte;
     }
 
-    public void setTipoTransporte(String tipoTransporte) {
+    public void setTipoTransporte(Transporte tipoTransporte) {
         this.tipoTransporte = tipoTransporte;
     }
 
