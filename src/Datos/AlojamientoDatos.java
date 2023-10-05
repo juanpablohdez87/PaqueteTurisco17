@@ -2,6 +2,7 @@ package Datos;
 
 import Entidades.Alojamiento;
 import Entidades.Ciudad;
+import Entidades.Servicio;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -27,7 +28,7 @@ public class AlojamientoDatos {
             ps.setInt(1, alo.getCiuDestino().getIdCiudad());
             ps.setDate(2, Date.valueOf(alo.getFechaIngreso()));
             ps.setDate(3, Date.valueOf(alo.getFechaSalida()));
-            ps.setString(4, alo.getServicio());
+            ps.setString(4, alo.getServicio().name());
             ps.setDouble(5, alo.getImporteDiario());
             ps.setBoolean(6, alo.isEstado());
 
@@ -79,7 +80,7 @@ public class AlojamientoDatos {
             ps.setInt(1, alo.getCiuDestino().getIdCiudad());
             ps.setDate(2, Date.valueOf(alo.getFechaIngreso()));
             ps.setDate(3, Date.valueOf(alo.getFechaSalida()));
-            ps.setString(4, alo.getServicio());
+            ps.setString(4, alo.getServicio().name());
             ps.setDouble(5, alo.getImporteDiario());
             ps.setInt(6, alo.getIdAlojamiento());
             
@@ -108,11 +109,14 @@ public class AlojamientoDatos {
             rs = ps.executeQuery();
             if (rs.next()) {
                 Ciudad ciudad = CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuDestino"));
+                String tipoServicioStr = rs.getString("Servicio");
+                Servicio tipoServicio = Servicio.valueOf(tipoServicioStr);
+                
                 alo.setIdAlojamiento(id);
                 alo.setCiuDestino(ciudad);
                 alo.setFechaIngreso(rs.getDate("fechaIngreso").toLocalDate());
                 alo.setFechaSalida(rs.getDate("fechaSalida").toLocalDate());
-                alo.setServicio(rs.getString("servicio"));
+                alo.setServicio(tipoServicio);
                 alo.setImporteDiario(rs.getDouble("importeDiario"));
                 alo.setEstado(true);
 
@@ -139,11 +143,14 @@ public class AlojamientoDatos {
             while (rs.next()) {
                 Alojamiento alo = new Alojamiento();
                 Ciudad ciudad = CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuDestino"));
+                String tipoServicioStr = rs.getString("Servicio");
+                Servicio tipoServicio = Servicio.valueOf(tipoServicioStr);
+                
                 alo.setIdAlojamiento(rs.getInt("idAlojamiento"));
                 alo.setCiuDestino(ciudad);
                 alo.setFechaIngreso(rs.getDate("fechaIngreso").toLocalDate());
                 alo.setFechaSalida(rs.getDate("fechaSalida").toLocalDate());
-                alo.setServicio(rs.getString("servicio"));
+                alo.setServicio(tipoServicio);
                 alo.setImporteDiario(rs.getDouble("importeDiario"));
                 alo.setEstado(rs.getBoolean("estado"));
 

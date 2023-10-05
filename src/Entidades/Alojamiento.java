@@ -12,14 +12,14 @@ public class Alojamiento {
     private Ciudad ciuDestino;
     private LocalDate fechaIngreso;
     private LocalDate fechaSalida;
-    private String servicio;//Pueder enum
+    private Servicio servicio;//enum
     private double importeDiario;
     private boolean estado;
 
     public Alojamiento() {
     }
 
-    public Alojamiento(Ciudad ciuDestino, LocalDate fechaIngreso, LocalDate fechaSalida, String servicio, double importeDiario, boolean estado) {
+    public Alojamiento(Ciudad ciuDestino, LocalDate fechaIngreso, LocalDate fechaSalida, Servicio servicio, double importeDiario, boolean estado) {
         this.ciuDestino = ciuDestino;
         this.fechaIngreso = fechaIngreso;
         this.fechaSalida = fechaSalida;
@@ -28,7 +28,7 @@ public class Alojamiento {
         this.estado = estado;
     }
 
-    public Alojamiento(int idAlojamiento, Ciudad ciuDestino, LocalDate fechaIngreso, LocalDate fechaSalida, String servicio, double importeDiario, boolean estado) {
+    public Alojamiento(int idAlojamiento, Ciudad ciuDestino, LocalDate fechaIngreso, LocalDate fechaSalida, Servicio servicio, double importeDiario, boolean estado) {
         this.idAlojamiento = idAlojamiento;
         this.ciuDestino = ciuDestino;
         this.fechaIngreso = fechaIngreso;
@@ -70,11 +70,11 @@ public class Alojamiento {
         this.fechaSalida = fechaSalida;
     }
 
-    public String getServicio() {
+    public Servicio getServicio() {
         return servicio;
     }
 
-    public void setServicio(String servicio) {
+    public void setServicio(Servicio servicio) {
         this.servicio = servicio;
     }
 
@@ -98,5 +98,7 @@ public class Alojamiento {
     public String toString() {
         return "Alojamiento{" + "idAlojamiento=" + idAlojamiento + ", ciuDestino=" + ciuDestino + ", fechaIngreso=" + fechaIngreso + ", fechaSalida=" + fechaSalida + ", servicio=" + servicio + ", importeDiario=" + importeDiario + ", estado=" + estado + '}';
     }
+
+    
 
 }

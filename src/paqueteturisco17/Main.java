@@ -74,14 +74,15 @@ public class Main {
 
 
     
-//        *******************************************************************************************************************
+//    ********************************ALOJAMIENTO*******************************
     
-    Alojamiento alo1 = new Alojamiento(CiudadDatos.buscarCiudad("San Miguel de Tucumán"), LocalDate.of(2023, 5, 20), LocalDate.of(2023, 8, 15), "Completo", 203555.58, true);
+//    Alojamiento alo1 = new Alojamiento(CiudadDatos.buscarCiudad("San Miguel de Tucumán"), LocalDate.of(2023, 5, 20), LocalDate.of(2023, 8, 15), "Completo", 203555.58, true);
 //    AlojamientoDatos.alojamientoGuardar(alo1);
-////    ***********************************************************************************************************************
+
+////  *********************************PAQUETES*********************************
 //    
-    Paquete paq1 = new Paquete(CiudadDatos.buscarCiudad("Bariloche"), CiudadDatos.buscarCiudad("San Miguel de Tucumán"), AlojamientoDatos.buscarAlojamiento(5), PasajeDatos.buscarPasaje(3));
-    PaqueteDatos.guardarPaquete(paq1);
+//    Paquete paq1 = new Paquete(CiudadDatos.buscarCiudad("Bariloche"), CiudadDatos.buscarCiudad("San Miguel de Tucumán"), AlojamientoDatos.buscarAlojamiento(5), PasajeDatos.buscarPasaje(3));
+//    PaqueteDatos.guardarPaquete(paq1);
     
     }
 

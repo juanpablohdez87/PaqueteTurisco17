@@ -20,15 +20,15 @@ public class PasajeDatos {
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
 
-    public static void guardarPasaje(Pasaje pas,String ciudad) {
+    public static void guardarPasaje(Pasaje pas) {
         String sqlCrear="insert into pasaje(tipoTransporte,importe,idCiuOrigen,estado)values(?,?,?,?)";
         try {
-            Ciudad c=CiudadDatos.buscarCiudad(ciudad);
+            
             ps=con.prepareStatement(sqlCrear,Statement.RETURN_GENERATED_KEYS);
             //https://stackoverflow.com/questions/13291076/java-enum-why-use-tostring-instead-of-name
             ps.setString(1,pas.getTipoTransporte().name());//por lo que entiendo el met. name() para este caso es similar al toString pero se recomienda el name()porq el toString puede sufrir una sobre-escritura
             ps.setDouble(2, pas.getImporte());
-            ps.setInt(3, c.getIdCiudad());
+            ps.setInt(3, pas.getNomCiuOrigen().getIdCiudad());
             ps.setBoolean(4, pas.isEstado());
             ps.executeUpdate();
             rs=ps.getGeneratedKeys();
