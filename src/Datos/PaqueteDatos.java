@@ -1,6 +1,8 @@
 package Datos;
 
 import Datos.Conexion1;
+import Entidades.Alojamiento;
+import Entidades.Ciudad;
 import Entidades.Paquete;
 import java.sql.Connection;
 import java.sql.Date;
@@ -43,34 +45,29 @@ public class PaqueteDatos {
         }
     }
 
-//    public static Paquete buscarPaquetePorId(int id) {
-//
-//        String sql = "select Ciuorigen, Ciudestino, alojamiento, pasaje from paquete where idpaquete = ? and estado = 1";
-//        paquete Paquete = new paquete();
-//
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, id);
-//            rs = ps.executeQuery();
-//            if (rs.next()) {
-//                paquete.setIdPaquete(id);
-//                paquete.setCiuorigen(rs.getInt("Ciuorigen"));
-//                paquete.setCiudestino(rs.getString("Ciudestino"));
-//                paquete.setAlojamiento(rs.getString("alojamiento"));
-//                paquete.setPasaje(rs.getDate("pasaje").toLocalDate());
-//                paquete.setEstado(true);
-//
-//            } else {
-//                JOptionPane.showMessageDialog(null, "El Paquete no esta disponible o no existe");
-//            }
-//            ps.close();
-//
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, "Error: Al acceso Paquete");
-//        }
-//        return Paquete;
-//
-//    }
+    public static Paquete buscarPaquetePorId(int id) {
+        String sql = "select idCiuOrigen, idCiuDestino, idAlojamiento, idPasaje from paquete where idPaquete = ?";
+        Paquete paquete = new Paquete();
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                paquete.setIdPaquete(id);
+                paquete.setCiuOrigen(CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuOrigen")));
+                paquete.setCiuDestino(CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuDestino")));
+                paquete.setAlojamiento( AlojamientoDatos.buscarAlojamiento(rs.getInt("idAlojamiento")));
+                paquete.setPasaje(PasajeDatos.buscarPasaje(rs.getInt("idPasaje")));
+            } else {
+                JOptionPane.showMessageDialog(null, "El Paquete no esta disponible o no existe");
+            }
+            ps.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: Al acceso Paquete");
+        }
+        return paquete;
+    }
 //
 //    public static Paquete buscarPaquetePorCiudestino(int dni) {
 //
@@ -102,52 +99,46 @@ public class PaqueteDatos {
 //        return paquete;
 //    }
 //
-//    public static List<Paquete> listarPaquete() {
-//        List<Paquete> listaA = new ArrayList<>();
-//        String sql = "select * from paquete";
-//
-//        try {
-//            ps = con.prepareStatement(sql);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                Paquete paquete = new Paquete();
-//                paquete.setIdpaquete(rs.getInt("idPaquete"));
-//                paquete.setCiuorigen(rs.getInt("Ciuorigen"));
-//                paquete.setCiudestino(rs.getString("Ciudestino"));
-//                paquete.setNombre(rs.getString("alojamiento"));
-//                paquete.setFechaNacimiento(rs.getDate("pasaje").toLocalDate());
-//                paquete.setEstado(rs.getBoolean("estado"));
-//                listaA.add(paquete);
-//
-//            }
-//            ps.close();
-////            JOptionPane.showMessageDialog(null, "Lista Registrada");
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error: Acceso a la tabla de paquetes");
-//        }
-//
-//        System.out.println("---> Lista de paquetes Registrada");
-//        for (Paquete paq : listaA) {
-//            System.out.println(paq.toString());
-//        }
-//        return listaA;
-//    }
+    public static List<Paquete> listarPaquete() {
+        List<Paquete> listaA = new ArrayList<>();
+        String sql = "select * from paquete";
+
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Paquete paquete = new Paquete();
+                paquete.setIdPaquete(rs.getInt("idPaquete"));
+                paquete.setCiuOrigen(CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuOrigen")));
+                paquete.setCiuDestino(CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuDestino")));
+                paquete.setAlojamiento(AlojamientoDatos.buscarAlojamiento(rs.getInt("idAlojamiento")));
+                paquete.setPasaje(PasajeDatos.buscarPasaje(rs.getInt("idPasaje")));
+                listaA.add(paquete);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: Acceso a la tabla de paquetes");
+        }
+
+        System.out.println("---> Lista de paquetes Registrada");
+        for (Paquete paq : listaA) {
+            System.out.println(paq.toString());
+        }
+        return listaA;
+    }
 //
 //    public static void modicarPaquete(Paquete paquete) {
-//
-//        String sql = "update paquete set Ciuorigen = ?, Ciudestino = ?, Alojamiento = ?, pasaje = ? where idpaquete = ?";
-//
+//        String sql = "update paquete set idCiuOrigen = ?, idCiuDestino = ?, idAlojamiento = ?, idPasaje = ? where idPaquete = ?";
 //        try {
 //            ps = con.prepareStatement(sql);
-//            ps.setInt(1, paquete.getCiuorigen());
-//            ps.setString(2, paquete.getCiudestino());
-//            ps.setString(3, paquete.getAlojamiento());
-//            PreparedStatement PreparedStatement = ps.setDate(4, Date.valueOf(paquete.getPasaje()));
-//            /*setDate*/
-//            ps.setInt(5, paquete.getIdAlumno());
+//            ps.setInt(1, paquete.getCiuOrigen().getIdCiudad());
+//            ps.setInt(2, paquete.getCiuDestino().getIdCiudad());
+//            ps.setInt(3, paquete.getAlojamiento().getIdAlojamiento());
+//            ps.setInt(4, paquete.getPasaje().getIdPasaje());
+//            ps.setInt(5, paquete.getIdPaquete());
 //            int exito = ps.executeUpdate();
 //            if (exito == 1) {
-//                JOptionPane.showMessageDialog(null, "paquete Actualizado");
+//                JOptionPane.showMessageDialog(null, "Paquete Actualizado");
 //            } else {
 //                JOptionPane.showMessageDialog(null, "Error: paquete no Existe");
 //            }
@@ -156,26 +147,25 @@ public class PaqueteDatos {
 //        } catch (SQLException ex) {
 //            JOptionPane.showMessageDialog(null, "Error al acceso a la tabla paquete" + ex.getMessage());
 //        }
-//
 //    }
 //
-//    public static void eliminarpaquete(int id) {
-//        String sql = "update paquete set paquete = 0 where idpaquete= ?";
-//
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, id);
-//            int fila = ps.executeUpdate();
-//            if (fila == 1) {
-//                JOptionPane.showMessageDialog(null, "---> paquete Eliminado");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "---> paquete ya no disponible");
-//            }
-//            ps.close();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error al acceso a la tabla paquete" + ex.getMessage());
-//        }
-//
-//    }
+    public static void eliminarpaquete(int id) {
+        String sql = "DELETE FROM paquete WHERE idPaquete = ? ";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int fila = ps.executeUpdate();
+            if (fila == 1) {
+                JOptionPane.showMessageDialog(null, "---> Paquete Eliminado");
+            } else {
+                JOptionPane.showMessageDialog(null, "---> Paquete ya no esta Disponible");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceso a la tabla paquete" + ex.getMessage());
+        }
+
+    }
 
 }
