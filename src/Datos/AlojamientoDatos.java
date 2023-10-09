@@ -161,6 +161,9 @@ public class AlojamientoDatos {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceso de datos Alojamiento" + e.getMessage());
         }
+        for (Alojamiento aloj : listaAlo) {
+            System.out.println(aloj.toString());
+        }
         return listaAlo;
     }
 }

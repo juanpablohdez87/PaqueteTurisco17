@@ -83,6 +83,11 @@ public class CiudadDatos {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: Acceso a la tabla de Ciudad");
         }
+
+        System.out.println("---> Lista de Ciudades Registrada");
+        for (Ciudad c : listaCiu) {
+            System.out.println(c.toString());
+        }
         return listaCiu;
     }
 
