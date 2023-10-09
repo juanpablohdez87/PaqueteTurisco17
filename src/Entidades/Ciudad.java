@@ -10,7 +10,7 @@ package Entidades;
  * @author Juan
  */
 public class Ciudad {
-    
+
     private int idCiudad;
     private String nombre;
     private String pais;
@@ -77,9 +77,7 @@ public class Ciudad {
 
     @Override
     public String toString() {
-        return "Ciudad{" + "idCiudad=" + idCiudad + ", nombre=" + nombre + ", pais=" + pais + ", estado=" + estado + ", provincia=" + provincia + '}';
+        return this.nombre;
     }
-    
-    
-    
+
 }
