@@ -165,7 +165,6 @@ public class PaqueteDatos {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceso a la tabla paquete" + ex.getMessage());
         }
-
     }
 
 }
