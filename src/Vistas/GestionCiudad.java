@@ -1,10 +1,13 @@
 package Vistas;
 
+import Datos.AlojamientoDatos;
 import Datos.CiudadDatos;
+import Entidades.Alojamiento;
 import Entidades.Ciudad;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -42,12 +45,10 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jtNombre = new javax.swing.JTextField();
         jtPais = new javax.swing.JTextField();
         jtProvincia = new javax.swing.JTextField();
-        jbEstado = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -80,10 +81,6 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
         jLabel3.setForeground(new java.awt.Color(255, 153, 0));
         jLabel3.setText("Pais");
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel4.setText("Estado");
-
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 153, 0));
         jLabel5.setText("Provincia");
@@ -105,9 +102,6 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
                 jtProvinciaKeyTyped(evt);
             }
         });
-
-        jbEstado.setForeground(new java.awt.Color(255, 153, 0));
-        jbEstado.setText("Activo");
 
         jButton1.setText("Nuevo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -165,40 +159,42 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(11, 11, 11)
-                        .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbEstado)
-                        .addGap(94, 94, 94)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(jLabel7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtBuscarP, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(jButton1)
+                        .addGap(105, 105, 105)
+                        .addComponent(jButton2)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtBuscarP, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,28 +209,25 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addGap(59, 59, 59)
                         .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(113, 113, 113)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addGap(18, 18, 18)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbEstado)
-                        .addComponent(jLabel5)
-                        .addComponent(jtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2)))
-                .addGap(68, 68, 68))
+                        .addGap(141, 141, 141)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -263,7 +256,7 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
             String nom = this.jtNombre.getText();
             String pa = this.jtPais.getText();
             String prov = this.jtProvincia.getText();
-            boolean est = this.jbEstado.isSelected();
+            boolean est = true;
             CiudadDatos.ciudadGuardar(new Ciudad(nom, pa, est, prov));
             limpiar();
             modelo.setRowCount(0);
@@ -276,10 +269,22 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // Eliminar
+        
         int filaSelecionada = this.jTable1.getSelectedRow();
         if (filaSelecionada != -1) { // Verifica si se ha seleccionado una fila válida
             int idCiu = Integer.parseInt(modelo.getValueAt(filaSelecionada, 0).toString());
-            CiudadDatos.eliminarCiudad(idCiu);
+            
+           boolean comprobar = comprobarAlo(AlojamientoDatos.listaAlojamientosxCiudadActiva(), CiudadDatos.buscarCiudadPorId(idCiu));
+            
+            if (comprobar==true) {
+               JOptionPane.showMessageDialog(this, "Para borrar esta ciudad no debe tener reservas en Alojamiento", "Error", JOptionPane.ERROR_MESSAGE);
+               return;
+            }else{
+                CiudadDatos.eliminarCiudad(idCiu);
+            }
+            
+           
+            
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila antes de Eliminar Ciudad", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -336,7 +341,7 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
         String pais = this.jtBuscarP.getText();
         modelo.setRowCount(0);
         for (Ciudad ciu : CiudadDatos.listarCiu()) {
-            if (ciu.getPais().toLowerCase().startsWith(pais.toLowerCase())) {
+            if (ciu.getPais().toLowerCase().startsWith(pais.toLowerCase()) && ciu.isEstado() == true) {
                 int id = ciu.getIdCiudad();
                 String nom = ciu.getNombre();
                 String pa = ciu.getPais();
@@ -369,7 +374,6 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -377,7 +381,6 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbEliminar;
-    private javax.swing.JRadioButton jbEstado;
     private javax.swing.JButton jbModificar;
     private javax.swing.JTextField jtBuscarP;
     private javax.swing.JTextField jtNombre;
@@ -398,14 +401,14 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
         this.jtNombre.setEditable(ok);
         this.jtProvincia.setEditable(ok);
         this.jtPais.setEditable(ok);
-        this.jbEstado.setEnabled(ok);
+
     }
 
     private void limpiar() {
         this.jtNombre.setText("");
         this.jtProvincia.setText("");
         this.jtPais.setText("");
-        this.jbEstado.setSelected(false);
+
     }
 
     private String activo(boolean ok) {
@@ -424,12 +427,25 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
 
     private void cargarTabla() {
         for (Ciudad ciu : CiudadDatos.listarCiu()) {
-            int id = ciu.getIdCiudad();
-            String nom = ciu.getNombre();
-            String pa = ciu.getPais();
-            String prov = ciu.getProvincia();
-            boolean est = ciu.isEstado();
-            modelo.addRow(new Object[]{id, nom, pa, prov, activo(est)});
+            if (ciu.isEstado() == true) {
+                int id = ciu.getIdCiudad();
+                String nom = ciu.getNombre();
+                String pa = ciu.getPais();
+                String prov = ciu.getProvincia();
+                boolean est = ciu.isEstado();
+                modelo.addRow(new Object[]{id, nom, pa, prov, activo(est)});
+            }
+
         }
+    }
+
+    private boolean comprobarAlo(List<Alojamiento> alo, Ciudad ciu) {
+
+        for (Alojamiento aloj : alo) {
+            if (aloj.getCiuDestino().getNombre().equalsIgnoreCase(ciu.getNombre())&& aloj.isEstado()==true) {
+                return true;
+            }
+        }
+        return false;
     }
 }

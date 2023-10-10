@@ -51,9 +51,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jbEstado = new javax.swing.JRadioButton();
         jbAgregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -89,16 +87,9 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         jLabel3.setForeground(new java.awt.Color(255, 153, 0));
         jLabel3.setText("Fecha de ingreso");
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel4.setText("Estado");
-
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 153, 0));
         jLabel5.setText("Servicio");
-
-        jbEstado.setForeground(new java.awt.Color(255, 153, 0));
-        jbEstado.setText("Activo");
 
         jbAgregar.setText("Agregar");
         jbAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -185,15 +176,9 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jbAgregar))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel2)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jcCiuDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jbEstado)))
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jcCiuDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -262,8 +247,6 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
                                 .addComponent(jdateFechaIngre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jbEstado)
                             .addComponent(jLabel8)
                             .addComponent(jtImporteDiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))))
@@ -294,7 +277,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         // Agregar
         try {
-            if (this.jtImporteDiario.getText().isEmpty()) {
+            if (this.jtImporteDiario.getText().isEmpty() || this.jdateFechaIngre.getDate() == null || this.jdateFechaSalida.getDate() == null) {
                 JOptionPane.showMessageDialog(null, "No debe quedar campos vacíos", "Loco Fíjate", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -303,7 +286,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
             java.util.Date fSal = this.jdateFechaSalida.getDate(); // Obtener la fecha de salida como java.util.Date
             Servicio ser = (Servicio) this.jcServicio.getSelectedItem();
             double imp = Double.parseDouble(this.jtImporteDiario.getText());
-            boolean est = this.jbEstado.isSelected();
+            boolean est = true;
             // Convertir java.util.Date a java.sql.Date
             java.sql.Date sqlDateIng = new java.sql.Date(fIng.getTime());
             java.sql.Date sqlDateSal = new java.sql.Date(fSal.getTime());
@@ -344,7 +327,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
             String ciuS = modelo.getValueAt(filaSelecionada, 3).toString();
             LocalDate ciuSalida = LocalDate.parse(ciuS);
             Servicio ser = (Servicio) modelo.getValueAt(filaSelecionada, 4);
-            double imp = (Double) modelo.getValueAt(filaSelecionada, 5);
+            double imp = Double.parseDouble(modelo.getValueAt(filaSelecionada, 5).toString());
             String est = modelo.getValueAt(filaSelecionada, 6).toString();
             AlojamientoDatos.modificarAlojamiento(new Alojamiento(idAlo, CiudadDatos.buscarCiudad(ciu), ciuInicio, ciuSalida, ser, imp, activo1(est)));
         } else {
@@ -357,10 +340,13 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         // BuscarCombox
         modelo.setRowCount(0);
         Ciudad ciuSelecionada = (Ciudad) this.jcCiuBuscar.getSelectedItem();
-        for (Alojamiento alo : AlojamientoDatos.listaAlojamientos()) {
+        for (Alojamiento alo : AlojamientoDatos.listaAlojamientosxCiudadActiva()) {
+
             if (alo.getCiuDestino().getNombre().equalsIgnoreCase(ciuSelecionada.getNombre())) {
                 modelo.addRow(new Object[]{alo.getIdAlojamiento(), alo.getCiuDestino().getNombre(), alo.getFechaIngreso(), alo.getFechaSalida(), alo.getServicio(), alo.getImporteDiario(), activo(alo.isEstado())});
+
             }
+
         }
     }//GEN-LAST:event_jcCiuBuscarActionPerformed
 
@@ -368,7 +354,6 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -378,7 +363,6 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbEliminar;
-    private javax.swing.JRadioButton jbEstado;
     private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JComboBox<Ciudad> jcCiuBuscar;
@@ -395,7 +379,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         this.jcServicio.setEnabled(ok);
         this.jdateFechaIngre.setEnabled(ok);
         this.jdateFechaSalida.setEnabled(ok);
-        this.jbEstado.setEnabled(ok);
+
     }
 
     private void armarCabezera() {
@@ -411,7 +395,8 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
 
     private void limpiar() {
         this.jtImporteDiario.setText("");
-        this.jbEstado.setSelected(false);
+        this.jdateFechaIngre.setDate(null);  // Establece la fecha de ingreso como null
+        this.jdateFechaSalida.setDate(null);  // Establece la fecha de salida como null
     }
 
     private String activo(boolean ok) {
@@ -429,7 +414,8 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
     }
 
     private void cargarTabla() {
-        for (Alojamiento alo : AlojamientoDatos.listaAlojamientos()) {
+        for (Alojamiento alo : AlojamientoDatos.listaAlojamientosxCiudadActiva()) {
+
             int id = alo.getIdAlojamiento();
             String ciu = alo.getCiuDestino().getNombre();
             Date fIng = Date.valueOf(alo.getFechaIngreso().toString());
@@ -438,6 +424,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
             double imp = alo.getImporteDiario();
             boolean est = alo.isEstado();
             modelo.addRow(new Object[]{id, ciu, fIng, fSal, ser, imp, activo(est)});
+
         }
     }
 
@@ -449,9 +436,20 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
 
     private void cagarComboxCiu() {
         for (Ciudad ciu : CiudadDatos.listarCiu()) {
-            this.jcCiuDestino.addItem(ciu);
-            this.jcCiuBuscar.addItem(ciu);
+            if (ciu.isEstado() == true) {
+                this.jcCiuDestino.addItem(ciu);
+                this.jcCiuBuscar.addItem(ciu);
+            }
         }
     }
+
+//    private void borrarFila(Alojamiento alo) {
+//        int f = this.jTable1.getRowCount() - 1;
+//        for (; f >= 0; f--) {
+//            if (alo.getCiuDestino() == null) {
+//                modelo.removeRow(f);
+//            }
+//        }
+//    }
 
 }//Fin class
