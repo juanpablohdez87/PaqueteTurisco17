@@ -194,7 +194,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
-                                        .addGap(48, 48, 48)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jdateFechaIngre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
@@ -231,7 +231,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
                                         .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(94, 94, 94))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jbNuevo)
                                     .addComponent(jbAgregar))
@@ -284,6 +284,11 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
             Ciudad ciu = (Ciudad) this.jcCiuDestino.getSelectedItem();
             java.util.Date fIng = this.jdateFechaIngre.getDate(); // Obtener la fecha de ingreso como java.util.Date
             java.util.Date fSal = this.jdateFechaSalida.getDate(); // Obtener la fecha de salida como java.util.Date
+             if (fIng.after(fSal)) {
+                JOptionPane.showMessageDialog(null, "La fecha de ingreso tiene que ser antes de la fecha de salida", "Loco Fíjate", JOptionPane.ERROR_MESSAGE);
+                limpiar();
+                return;
+            }
             Servicio ser = (Servicio) this.jcServicio.getSelectedItem();
             double imp = Double.parseDouble(this.jtImporteDiario.getText());
             boolean est = true;
