@@ -397,4 +397,4 @@ private void comboCiudad(){
     comboBox.addItem(Transporte.COLECTIVO);
     tc.setCellEditor(new DefaultCellEditor(comboBox));
     }
-}
+}//Fin class
