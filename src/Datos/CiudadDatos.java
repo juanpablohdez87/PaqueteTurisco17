@@ -150,25 +150,5 @@ public class CiudadDatos {
         return ciu;
 
     }
-   public static List<Ciudad> listarCiuxTrue() {
-        List<Ciudad> listaCiu = new ArrayList<>();
-        String sql = "select * from ciudad where estado=1";
-        try {
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Ciudad ciu = new Ciudad();
-                ciu.setIdCiudad(rs.getInt("idCiudad"));
-                ciu.setNombre(rs.getString("nombre"));
-                ciu.setPais(rs.getString("pais"));
-                ciu.setEstado(rs.getBoolean("estado"));
-                ciu.setProvincia(rs.getString("provincia"));
-                listaCiu.add(ciu);
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error: Acceso a la tabla de Ciudad");
-        }
-        return listaCiu;
-    }
+
 }
