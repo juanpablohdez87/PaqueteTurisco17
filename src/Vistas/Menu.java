@@ -4,8 +4,6 @@
  */
 package Vistas;
 
-import javax.swing.ImageIcon;
-
 /**
  *
  * @author lucia
@@ -18,7 +16,6 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
         setLocationRelativeTo(null);
-        this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/IconoTrans.png")).getImage());
     }
 
     /**
@@ -89,12 +86,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Gestión del Pasaje");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
+        jMenuItem3.setText("jMenuItem3");
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setText("jMenuItem4");
@@ -141,15 +133,6 @@ public class Menu extends javax.swing.JFrame {
         Escritorio.add(ga);
         Escritorio.moveToFront(ga);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        Escritorio.removeAll();
-        Escritorio.repaint();
-        GestionPasaje gp = new GestionPasaje();
-        gp.setVisible(true);
-        Escritorio.add(gp);
-        Escritorio.moveToFront(gp);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
