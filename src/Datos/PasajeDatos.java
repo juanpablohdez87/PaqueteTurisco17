@@ -10,8 +10,8 @@ import java.sql.*;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class PasajeDatos {
@@ -45,7 +45,7 @@ public class PasajeDatos {
     }
 
     public static void eliminarPasaje(int idP) {
-        String sqlBorrar = "update pasaje set estado=0 where idPasaje = ?";
+        String sqlBorrar = "delete from pasaje where idPasaje=?";
        
         try {
             ps = con.prepareStatement(sqlBorrar);
@@ -60,15 +60,15 @@ public class PasajeDatos {
         }
     }
 
-    public static void modificarPasaje(Pasaje pas,int idC) {
+    public static void modificarPasaje(Pasaje pas) {
               // estado para que lo modifique de false a true, por el hecho de q si algún cliente cambia de opinión
         String sqlActualizar = "update pasaje set tipoTransporte = ?, idCiuOrigen = ?, importe = ?,estado=? where idPasaje = ?";
         try {
             ps=con.prepareStatement(sqlActualizar);
            
             ps.setString(1, pas.getTipoTransporte().name());
-            Ciudad ciudad = CiudadDatos.buscarCiudadPorId(idC);
-            ps.setInt(2,ciudad.getIdCiudad());
+//            Ciudad ciudad = CiudadDatos.buscarCiudadPorId(idC);
+            ps.setInt(2, pas.getNomCiuOrigen().getIdCiudad());
             ps.setDouble(3, pas.getImporte());
             ps.setBoolean(4, pas.isEstado());
             ps.setInt(5, pas.getIdPasaje());
