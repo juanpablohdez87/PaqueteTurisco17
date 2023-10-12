@@ -81,13 +81,13 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         jTFCiudad = new javax.swing.JTextField();
         jBModificar = new javax.swing.JButton();
         jBEliminar = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jCBCiudad = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jCBTrans = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jTFImporte = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setClosable(true);
         setIconifiable(true);
@@ -112,6 +112,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jBCrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add.png"))); // NOI18N
         jBCrear.setText("Crear");
         jBCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +126,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
             }
         });
 
+        jBModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/update_file.png"))); // NOI18N
         jBModificar.setText("Modificar");
         jBModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,14 +134,13 @@ private DefaultTableModel modelo = new DefaultTableModel(){
             }
         });
 
+        jBEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete2.png"))); // NOI18N
         jBEliminar.setText("Eliminar");
         jBEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBEliminarActionPerformed(evt);
             }
         });
-
-        jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Ciudad de partida:");
@@ -150,19 +151,21 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Importe:");
 
+        jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jBCrear, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jTFCiudad, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jBModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jBEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jSeparator2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jCBCiudad, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jCBTrans, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jTFImporte, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jSeparator2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -243,7 +246,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
                                     .addComponent(jTFImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(28, 28, 28)
                                 .addComponent(jBCrear)))
-                        .addGap(0, 305, Short.MAX_VALUE)))
+                        .addGap(0, 289, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 

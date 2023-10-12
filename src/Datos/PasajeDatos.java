@@ -21,21 +21,21 @@ public class PasajeDatos {
     private static ResultSet rs = null;
 
     public static void guardarPasaje(Pasaje pas) {
-        String sqlCrear="insert into pasaje(tipoTransporte,importe,idCiuOrigen,estado)values(?,?,?,?)";
+        String sqlCrear = "insert into pasaje(tipoTransporte,importe,idCiuOrigen,estado)values(?,?,?,?)";
         try {
-            
-            ps=con.prepareStatement(sqlCrear,Statement.RETURN_GENERATED_KEYS);
+
+            ps = con.prepareStatement(sqlCrear, Statement.RETURN_GENERATED_KEYS);
             //https://stackoverflow.com/questions/13291076/java-enum-why-use-tostring-instead-of-name
-            ps.setString(1,pas.getTipoTransporte().name());//por lo que entiendo el met. name() para este caso es similar al toString pero se recomienda el name()porq el toString puede sufrir una sobre-escritura
+            ps.setString(1, pas.getTipoTransporte().name());//por lo que entiendo el met. name() para este caso es similar al toString pero se recomienda el name()porq el toString puede sufrir una sobre-escritura
             ps.setDouble(2, pas.getImporte());
             ps.setInt(3, pas.getNomCiuOrigen().getIdCiudad());
             ps.setBoolean(4, pas.isEstado());
             ps.executeUpdate();
-            rs=ps.getGeneratedKeys();
-            if(rs.next()){
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
                 pas.setIdPasaje(rs.getInt(1));
-               JOptionPane.showMessageDialog(null, "Guardado exitoso");
-            }else{
+                JOptionPane.showMessageDialog(null, "Guardado exitoso");
+            } else {
                 JOptionPane.showMessageDialog(null, "Imposible guardarlo en la base de datos");
             }
             ps.close();
@@ -46,12 +46,12 @@ public class PasajeDatos {
 
     public static void eliminarPasaje(int idP) {
         String sqlBorrar = "delete from pasaje where idPasaje=?";
-       
+
         try {
             ps = con.prepareStatement(sqlBorrar);
-            ps.setInt(1, idP);  
+            ps.setInt(1, idP);
             int fila = ps.executeUpdate();
-            if (fila>0) {
+            if (fila > 0) {
                 JOptionPane.showMessageDialog(null, "Pasaje Eliminado");
             }
             ps.close();
@@ -61,11 +61,11 @@ public class PasajeDatos {
     }
 
     public static void modificarPasaje(Pasaje pas) {
-              // estado para que lo modifique de false a true, por el hecho de q si algún cliente cambia de opinión
+        // estado para que lo modifique de false a true, por el hecho de q si algún cliente cambia de opinión
         String sqlActualizar = "update pasaje set tipoTransporte = ?, idCiuOrigen = ?, importe = ?,estado=? where idPasaje = ?";
         try {
-            ps=con.prepareStatement(sqlActualizar);
-           
+            ps = con.prepareStatement(sqlActualizar);
+
             ps.setString(1, pas.getTipoTransporte().name());
 //            Ciudad ciudad = CiudadDatos.buscarCiudadPorId(idC);
             ps.setInt(2, pas.getNomCiuOrigen().getIdCiudad());
@@ -73,27 +73,27 @@ public class PasajeDatos {
             ps.setBoolean(4, pas.isEstado());
             ps.setInt(5, pas.getIdPasaje());
 
-            int fila=ps.executeUpdate();
-            if(fila==1){
+            int fila = ps.executeUpdate();
+            if (fila == 1) {
                 JOptionPane.showMessageDialog(null, "Actualización realizada correctamente");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Actualización realizada incorrectamente");
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de Pasajes");
         }
-        
+
     }
 
     public static Pasaje buscarPasaje(int id) {
-          String sqlBusqueda="select tipoTransporte,idCiuOrigen,importe from pasaje where idPasaje=? and estado=1";
-          Pasaje pasaje = new Pasaje();         
+        String sqlBusqueda = "select tipoTransporte,idCiuOrigen,importe from pasaje where idPasaje=? and estado=1";
+        Pasaje pasaje = new Pasaje();
         try {
-            ps=con.prepareStatement(sqlBusqueda);
+            ps = con.prepareStatement(sqlBusqueda);
             ps.setInt(1, id);
-            rs=ps.executeQuery();
-            if(rs.next()){
+            rs = ps.executeQuery();
+            if (rs.next()) {
                 pasaje.setIdPasaje(id);
                 //lo que traiga el rs me lo guardo en una variable
                 String tipoTransporteStr = rs.getString("tipoTransporte");
@@ -104,7 +104,7 @@ public class PasajeDatos {
                 pasaje.setNomCiuOrigen(ciudad);
                 pasaje.setImporte(rs.getDouble("importe"));
                 pasaje.setEstado(true);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "El pasaje no se encuentra activo o no existe");
             }
         } catch (SQLException ex) {
@@ -114,13 +114,13 @@ public class PasajeDatos {
     }
 
     public static List<Pasaje> listaPas() {
-      List<Pasaje> listaPasaje=new ArrayList<>();
-      String sqlBusqueda="select * from pasaje";
+        List<Pasaje> listaPasaje = new ArrayList<>();
+        String sqlBusqueda = "select * from pasaje";
         try {
-            ps=con.prepareStatement(sqlBusqueda);
-            rs=ps.executeQuery();
-            while(rs.next()){
-                Pasaje pasaje=new Pasaje();
+            ps = con.prepareStatement(sqlBusqueda);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Pasaje pasaje = new Pasaje();
                 pasaje.setIdPasaje(rs.getInt("idPasaje"));
                 String tipoTransporteStr = rs.getString("tipoTransporte");
                 Transporte tipoTransporte = Transporte.valueOf(tipoTransporteStr);
@@ -135,11 +135,41 @@ public class PasajeDatos {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
         }
-       
+
         for (Pasaje pas : listaPasaje) {
             System.out.println(pas.toString());
-    }
+        }
         return listaPasaje;
-}
-
     }
+    
+    public static List<Pasaje> listarPasajesActivos(){
+        List<Pasaje> listaPasaje = new ArrayList<>();
+        String sqlBusqueda = "select * from pasaje where estado = 1";
+        try {
+            ps = con.prepareStatement(sqlBusqueda);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Pasaje pasaje = new Pasaje();
+                pasaje.setIdPasaje(rs.getInt("idPasaje"));
+                String tipoTransporteStr = rs.getString("tipoTransporte");
+                Transporte tipoTransporte = Transporte.valueOf(tipoTransporteStr);
+                pasaje.setTipoTransporte(tipoTransporte);
+                pasaje.setImporte(rs.getDouble("importe"));
+                Ciudad ciudad = CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuOrigen"));
+                pasaje.setNomCiuOrigen(ciudad);
+                pasaje.setEstado(rs.getBoolean("estado"));
+                listaPasaje.add(pasaje);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+        }
+
+//        for (Pasaje pas : listaPasaje) {
+//            System.out.println(pas.toString());
+//        }
+        return listaPasaje;
+           
+    }
+
+}
