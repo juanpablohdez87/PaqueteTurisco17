@@ -200,10 +200,10 @@ public class GestionPaquete extends javax.swing.JInternalFrame {
             // Obtener la lista de ciudades disponibles (sin la seleccionada en origen)
             List<Ciudad> ciudadesDisponibles = new ArrayList<>(CiudadDatos.listarCiuxTrue());
             ciudadesDisponibles.remove(ciudadOrigen);
-            System.out.println(ciudadesDisponibles);
+//            System.out.println(ciudadesDisponibles);
 
             // Limpiar el ComboBox de destino
-//        jcbCiuDestino.removeAllItems();
+            jcbCiuDestino.removeAllItems();
             // Agregar las ciudades disponibles al ComboBox de destino
             for (Ciudad ciu : ciudadesDisponibles) {
                 jcbCiuDestino.addItem(ciu);
