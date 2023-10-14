@@ -3,9 +3,20 @@
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/adm.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Administrador"/>
           </Properties>
           <SubComponents>
@@ -45,8 +56,41 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Edit"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/cliente.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cliente"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="SelecionarRuta"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="SelecionarAlojamiento"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="SelecionarTemporadas"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="SelecionarPasaje"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Paquete_y_Presupuesto"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
@@ -79,7 +123,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="601" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" pref="616" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -99,10 +143,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="Escritorio" min="-2" pref="601" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
+              <Component id="Escritorio" alignment="0" pref="616" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -125,7 +166,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="601" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="616" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>

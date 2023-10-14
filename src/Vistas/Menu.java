@@ -40,6 +40,11 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,7 +61,7 @@ public class Menu extends javax.swing.JFrame {
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 601, Short.MAX_VALUE)
+            .addGap(0, 616, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -67,11 +72,13 @@ public class Menu extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(Escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(Escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
         );
 
+        jMenuBar1.setBackground(new java.awt.Color(255, 255, 0));
+
+        jMenu1.setBackground(new java.awt.Color(0, 0, 0));
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/adm.png"))); // NOI18N
         jMenu1.setText("Administrador");
 
         jMenuItem1.setText("GestionCiudad");
@@ -108,7 +115,29 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cliente.png"))); // NOI18N
+        jMenu2.setText("Cliente");
+
+        jMenuItem5.setText("SelecionarRuta");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
+        jMenuItem6.setText("SelecionarAlojamiento");
+        jMenu2.add(jMenuItem6);
+
+        jMenuItem7.setText("SelecionarTemporadas");
+        jMenu2.add(jMenuItem7);
+
+        jMenuItem8.setText("SelecionarPasaje");
+        jMenu2.add(jMenuItem8);
+
+        jMenuItem9.setText("Paquete_y_Presupuesto");
+        jMenu2.add(jMenuItem9);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -121,7 +150,7 @@ public class Menu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
         );
 
         pack();
@@ -165,6 +194,16 @@ public class Menu extends javax.swing.JFrame {
         Escritorio.add(gpa);
         Escritorio.moveToFront(gpa);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // Selecionar Ruta
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        SelecionarRuta sr = new SelecionarRuta();
+        sr.setVisible(true);
+        Escritorio.add(sr);
+        Escritorio.moveToFront(sr);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,6 +249,11 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

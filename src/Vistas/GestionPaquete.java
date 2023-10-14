@@ -223,6 +223,9 @@ public class GestionPaquete extends javax.swing.JInternalFrame {
 
     private void armarCabezera() {
         modelo.addColumn("IdPaquete");
+//        tipoDeTranspote
+//        importe
+//        estado >>> activo
         modelo.addColumn("Ciudad Origen");
         modelo.addColumn("Ciudad Destino");
         modelo.addColumn("Alojamiento");
