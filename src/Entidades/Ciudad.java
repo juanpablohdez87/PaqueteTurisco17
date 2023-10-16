@@ -5,6 +5,8 @@
  */
 package Entidades;
 
+import java.util.Objects;
+
 /**
  *
  * @author Juan
@@ -79,5 +81,4 @@ public class Ciudad {
     public String toString() {
         return this.nombre;
     }
-
 }

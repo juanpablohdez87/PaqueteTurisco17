@@ -378,12 +378,10 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         modelo.setRowCount(0);
         Ciudad ciuSelecionada = (Ciudad) this.jcCiuBuscar.getSelectedItem();
         for (Alojamiento alo : AlojamientoDatos.listaAlojamientosxCiudadActiva()) {
-
             if (alo.getCiuDestino().getNombre().equalsIgnoreCase(ciuSelecionada.getNombre())) {
                 modelo.addRow(new Object[]{alo.getIdAlojamiento(), alo.getCiuDestino().getNombre(), alo.getFechaIngreso(), alo.getFechaSalida(), alo.getServicio(), alo.getImporteDiario(), activo(alo.isEstado())});
 
             }
-
         }
     }//GEN-LAST:event_jcCiuBuscarActionPerformed
 

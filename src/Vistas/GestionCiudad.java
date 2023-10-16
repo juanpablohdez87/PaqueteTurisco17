@@ -494,7 +494,6 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
                 boolean est = ciu.isEstado();
                 modelo.addRow(new Object[]{id, nom, pa, prov, activo(est)});
             }
-
         }
     }
 

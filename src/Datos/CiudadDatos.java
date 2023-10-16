@@ -15,6 +15,9 @@ public class CiudadDatos {
     private static Connection con = Conexion1.getConexion();
     private static PreparedStatement ps = null;
     private static ResultSet rs = null;
+    public static Ciudad ciuOriSelecionada = null;
+    public static Ciudad ciuDestSelecionada = null;
+    public static boolean ciudadesSelecionada = false;
 
     public static void ciudadGuardar(Ciudad ciudad) {
         String sql = "insert into ciudad( nombre, pais, estado, provincia) value( ?, ?, ?, ?)";
@@ -150,7 +153,8 @@ public class CiudadDatos {
         return ciu;
 
     }
-   public static List<Ciudad> listarCiuxTrue() {
+
+    public static List<Ciudad> listarCiuxTrue() {
         List<Ciudad> listaCiu = new ArrayList<>();
         String sql = "select * from ciudad where estado=1";
         try {
