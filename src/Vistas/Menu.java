@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vistas;
 
 import javax.swing.ImageIcon;
@@ -38,13 +34,11 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,18 +99,13 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenuItem4.setText("Gestion Paquetes");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem4);
+        jMenuItem10.setText("Agregar Cliente");
+        jMenu1.add(jMenuItem10);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cliente.png"))); // NOI18N
-        jMenu2.setText("Cliente");
+        jMenu2.setText("Paquete");
 
         jMenuItem5.setText("SelecionarRuta");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -126,17 +115,16 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem5);
 
-        jMenuItem6.setText("SelecionarAlojamiento");
+        jMenuItem6.setText("Cargar Paquete");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem6);
 
-        jMenuItem7.setText("SelecionarTemporadas");
+        jMenuItem7.setText("Cliente y Gestion de Paquete");
         jMenu2.add(jMenuItem7);
-
-        jMenuItem8.setText("SelecionarPasaje");
-        jMenu2.add(jMenuItem8);
-
-        jMenuItem9.setText("Paquete_y_Presupuesto");
-        jMenu2.add(jMenuItem9);
 
         jMenuBar1.add(jMenu2);
 
@@ -186,15 +174,6 @@ public class Menu extends javax.swing.JFrame {
         Escritorio.moveToFront(gp);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        Escritorio.removeAll();
-        Escritorio.repaint();
-        GestionPaquete gpa = new GestionPaquete();
-        gpa.setVisible(true);
-        Escritorio.add(gpa);
-        Escritorio.moveToFront(gpa);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // Selecionar Ruta
         Escritorio.removeAll();
@@ -204,6 +183,16 @@ public class Menu extends javax.swing.JFrame {
         Escritorio.add(sr);
         Escritorio.moveToFront(sr);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // Cargar Paquete
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        CargarPaquete cp = new CargarPaquete();
+        cp.setVisible(true);
+        Escritorio.add(cp);
+        Escritorio.moveToFront(cp);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,14 +235,12 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
