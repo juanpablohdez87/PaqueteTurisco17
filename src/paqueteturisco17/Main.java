@@ -31,9 +31,13 @@ public class Main {
 //                new Menu().setVisible(true);
 //            }
 //        });
-        
-         Cliente cliente = new Cliente("Fabricio", "Coleman", 4589632, 487956, null);
-         ClientesDatos.guardarCliente(cliente);
+         Paquete paquete1 = PaqueteDatos.buscarPaquetePorId(1);
+         Cliente cliente = new Cliente(1,"Hernan", "Coleman", 4589632, 487956, paquete1);
+//         ClientesDatos.guardarCliente(cliente);
+//         System.out.println(ClientesDatos.buscarClientes(1));
+//         ClientesDatos.modificarclientes(cliente);
+//         System.out.println(ClientesDatos.listaclientes());
+         ClientesDatos.eliminarCliente(1);
     }
     
     

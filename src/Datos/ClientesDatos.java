@@ -22,7 +22,7 @@ public class ClientesDatos {
 
     public static void guardarCliente(Cliente client) {
 
-        String sql = "insert into clientes(dni, nombre, apellido, telefono,idPaquete) value (?, ?, ?, ?,?)";
+        String sql = "insert into cliente(dni, nombre, apellido, telefono,idPaquete) value (?, ?, ?, ?,?)";
 
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -51,7 +51,7 @@ public class ClientesDatos {
 
     public static void modificarclientes(Cliente cliente) {
 
-        String sql = "update clientes set dni=?,nombre=?,apellido=?,telefono=?,idPaquete=? where idclientes = ?";
+        String sql = "update cliente set dni=?,nombre=?,apellido=?,telefono=?,idPaquete=? where idcliente = ?";
 
         try {
 
@@ -115,7 +115,7 @@ public class ClientesDatos {
             rs = ps.executeQuery();
             while (rs.next()) {
                  Cliente client = new Cliente();
-                 client.setIdCliente(rs.getInt("idclientes"));
+                 client.setIdCliente(rs.getInt("idCliente"));
                  client.setNombre(rs.getString("nombre"));
                  client.setApellido(rs.getString("apellido"));
                  client.setDni(rs.getInt("dni"));
@@ -132,7 +132,7 @@ public class ClientesDatos {
         return listaclient;
     }
     public static void eliminarCliente(int idCliente){
-        String eliminarSqul="Delete * from Cliente where idCliente=?";
+        String eliminarSqul="Delete from Cliente where idCliente=?";
         try {
             ps=con.prepareStatement(eliminarSqul);
             ps.setInt(1,idCliente);
