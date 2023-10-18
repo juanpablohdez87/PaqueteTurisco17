@@ -171,5 +171,34 @@ public class PasajeDatos {
         return listaPasaje;
            
     }
+    public static List<Pasaje> listarPasajesxCiudad(Ciudad ciu){
+         if (ciu == null) {
+        return new ArrayList<>(); 
+    }
+        List<Pasaje> listaPasaje = new ArrayList<>();
+        String sqlBusqueda = "select * from pasaje where estado = 1 and idCiuOrigen=?";
+        try {
+            
+            ps = con.prepareStatement(sqlBusqueda);
+            ps.setInt(1, ciu.getIdCiudad());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Pasaje pasaje = new Pasaje();
+                pasaje.setIdPasaje(rs.getInt("idPasaje"));
+                String tipoTransporteStr = rs.getString("tipoTransporte");
+                Transporte tipoTransporte = Transporte.valueOf(tipoTransporteStr);
+                pasaje.setTipoTransporte(tipoTransporte);
+                pasaje.setImporte(rs.getDouble("importe"));
+                pasaje.setNomCiuOrigen(ciu);
+                pasaje.setEstado(rs.getBoolean("estado"));
+                listaPasaje.add(pasaje);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
+        }
+        return listaPasaje;
+           
+    }
 
 }

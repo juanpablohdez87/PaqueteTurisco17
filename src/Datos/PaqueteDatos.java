@@ -120,10 +120,10 @@ public class PaqueteDatos {
             JOptionPane.showMessageDialog(null, "Error: Acceso a la tabla de paquetes");
         }
 
-        System.out.println("---> Lista de paquetes Registrada");
-        for (Paquete paq : listaA) {
-            System.out.println(paq.toString());
-        }
+//        System.out.println("---> Lista de paquetes Registrada");
+//        for (Paquete paq : listaA) {
+//            System.out.println(paq.toString());
+//        }
         return listaA;
     }
 //

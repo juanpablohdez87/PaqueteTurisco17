@@ -193,5 +193,37 @@ public class AlojamientoDatos {
         }
         return listaAlo;
     }
+    public static List<Alojamiento> listaAlojamientosxCiudad(Ciudad ciu) {
+         if (ciu == null) {
+        return new ArrayList<>(); 
+    }
+        List<Alojamiento> listaAlo = new ArrayList<>();
+        String sql = "select * from alojamiento where estado = 1 and idciuDestino=?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,ciu.getIdCiudad());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Alojamiento alo = new Alojamiento();
+                String tipoServicioStr = rs.getString("Servicio");
+                Servicio tipoServicio = Servicio.valueOf(tipoServicioStr);
+                alo.setIdAlojamiento(rs.getInt("idAlojamiento"));
+                alo.setCiuDestino(ciu);
+                alo.setFechaIngreso(rs.getDate("fechaIngreso").toLocalDate());
+                alo.setFechaSalida(rs.getDate("fechaSalida").toLocalDate());
+                alo.setServicio(tipoServicio);
+                alo.setImporteDiario(rs.getDouble("importeDiario"));
+                alo.setEstado(rs.getBoolean("estado"));
+
+                listaAlo.add(alo);
+            }
+            ps.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceso de datos Alojamiento" + e.getMessage());
+        }
+        return listaAlo;
+    }
     
 }

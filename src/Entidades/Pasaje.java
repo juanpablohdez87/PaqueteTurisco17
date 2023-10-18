@@ -76,7 +76,7 @@ public class Pasaje {
 
     @Override
     public String toString() {
-        return "Pasaje{" + "idPasaje=" + idPasaje + ", tipoTransporte=" + tipoTransporte + ", importe=" + importe + ", nomCiuOrigen=" + nomCiuOrigen + ", estado=" + estado + '}';
+        return  "["+tipoTransporte+"]" + " Importe: $ " + importe;
     }
     
     
