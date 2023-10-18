@@ -2,10 +2,12 @@ package paqueteturisco17;
 
 import Datos.AlojamientoDatos;
 import Datos.CiudadDatos;
+import Datos.ClientesDatos;
 import Datos.PaqueteDatos;
 import Datos.PasajeDatos;
 import Entidades.Alojamiento;
 import Entidades.Ciudad;
+import Entidades.Cliente;
 import Entidades.Paquete;
 import Entidades.Pasaje;
 import Entidades.Servicio;
@@ -24,11 +26,14 @@ public class Main {
 //        Pasaje pasaje = new Pasaje(20,Transporte.TREN,5422.88,ciudad,true);
 //        
 //        PasajeDatos.modificarPasaje(pasaje);
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Menu().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Menu().setVisible(true);
+//            }
+//        });
+        
+         Cliente cliente = new Cliente("Fabricio", "Coleman", 4589632, 487956, null);
+         ClientesDatos.guardarCliente(cliente);
     }
     
     
