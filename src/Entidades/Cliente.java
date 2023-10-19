@@ -11,25 +11,34 @@ public class Cliente {
     private int telefono;
     private int dni;
     private Paquete paquete;
+    private int cantPersonas;
+    private double importeTotal;
+    private boolean abonado;
 
     public Cliente() {
     }
 
-    public Cliente(String nombre, String apellido, int telefono, int dni, Paquete paquete) {
+    public Cliente(String nombre, String apellido, int telefono, int dni, Paquete paquete, int cantPersonas, double importeTotal, boolean abonado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.dni = dni;
         this.paquete = paquete;
+        this.cantPersonas = cantPersonas;
+        this.importeTotal = importeTotal;
+        this.abonado = abonado;
     }
 
-    public Cliente(int idCliente, String nombre, String apellido, int telefono, int dni, Paquete paquete) {
+    public Cliente(int idCliente, String nombre, String apellido, int telefono, int dni, Paquete paquete, int cantPersonas, double importeTotal, boolean abonado) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.dni = dni;
         this.paquete = paquete;
+        this.cantPersonas = cantPersonas;
+        this.importeTotal = importeTotal;
+        this.abonado = abonado;
     }
 
     public int getIdCliente() {
@@ -80,9 +89,36 @@ public class Cliente {
         this.paquete = paquete;
     }
 
+    public int getCantPersonas() {
+        return cantPersonas;
+    }
+
+    public void setCantPersonas(int cantPersonas) {
+        this.cantPersonas = cantPersonas;
+    }
+
+    public double getImporteTotal() {
+        return importeTotal;
+    }
+
+    public void setImporteTotal(double importeTotal) {
+        this.importeTotal = importeTotal;
+    }
+
+    public boolean isAbonado() {
+        return abonado;
+    }
+
+    public void setAbonado(boolean abonado) {
+        this.abonado = abonado;
+    }
+
     @Override
     public String toString() {
-        return "Cliente{" + "idCliente=" + idCliente + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", dni=" + dni + ", paquete=" + paquete + '}';
+        return "Cliente{" + "idCliente=" + idCliente + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", dni=" + dni + ", paquete=" + paquete + ", cantPersonas=" + cantPersonas + ", importeTotal=" + importeTotal + ", abonado=" + abonado + '}';
     }
-     
+
+    
+    
+    
 }

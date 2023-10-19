@@ -22,7 +22,7 @@ public class ClientesDatos {
 
     public static void guardarCliente(Cliente client) {
 
-        String sql = "insert into cliente(dni, nombre, apellido, telefono,idPaquete) value (?, ?, ?, ?,?)";
+        String sql = "insert into cliente(dni, nombre, apellido, telefono,idPaquete, cantPersonas, importeTotal, abonado) value (?, ?, ?, ?,?,?,?,?)";
 
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -31,6 +31,9 @@ public class ClientesDatos {
             ps.setString(3, client.getApellido());
             ps.setInt(4, client.getTelefono());
             ps.setInt(5, client.getPaquete().getIdPaquete());
+            ps.setInt(6, client.getCantPersonas());
+            ps.setDouble(7, client.getImporteTotal());
+            ps.setBoolean(8, client.isAbonado());
 
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
@@ -51,17 +54,21 @@ public class ClientesDatos {
 
     public static void modificarclientes(Cliente cliente) {
 
-        String sql = "update cliente set dni=?,nombre=?,apellido=?,telefono=?,idPaquete=? where idcliente = ?";
+        String sql = "update cliente set dni=?,nombre=?,apellido=?,telefono=?,idPaquete=? , cantPersonas=?, importeTotal=?, abonado=? where idcliente = ?";
 
         try {
 
             ps = con.prepareStatement(sql);
             ps.setInt(1, cliente.getDni());
-            ps.setString(2,cliente.getNombre());
-            ps.setString(3,cliente.getApellido());
-            ps.setInt(4,cliente.getTelefono());
-            ps.setInt(5,cliente.getPaquete().getIdPaquete());
-            ps.setInt(6,cliente.getIdCliente());
+            ps.setString(2, cliente.getNombre());
+            ps.setString(3, cliente.getApellido());
+            ps.setInt(4, cliente.getTelefono());
+            ps.setInt(5, cliente.getPaquete().getIdPaquete());
+            ps.setInt(6, cliente.getCantPersonas());
+            ps.setDouble(7, cliente.getImporteTotal());
+            ps.setBoolean(8, cliente.isAbonado());
+            ps.setInt(9, cliente.getIdCliente());
+
             int fila = ps.executeUpdate();
             if (fila == 1) {
                 JOptionPane.showMessageDialog(null, "Cliente modificado con éxito");
@@ -77,10 +84,10 @@ public class ClientesDatos {
     }
 
     public static Cliente buscarClientes(int id) {
-        
-        String sql ="select * from Cliente where idCliente = ?";
+
+        String sql = "select * from Cliente where idCliente = ?";
         Cliente cliente = new Cliente();
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -93,16 +100,18 @@ public class ClientesDatos {
                 cliente.setTelefono(rs.getInt("telefono"));
                 Paquete paquete = PaqueteDatos.buscarPaquetePorId(rs.getInt("idPaquete"));
                 cliente.setPaquete(paquete);
+                cliente.setCantPersonas(rs.getInt("cantPersonas"));
+                cliente.setImporteTotal(rs.getDouble("importeTotal"));
+                cliente.setAbonado(rs.getBoolean("abonado"));
             } else {
                 JOptionPane.showMessageDialog(null, "El cliente no existe");
             }
             ps.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceso de la tabla de datos de clientes"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceso de la tabla de datos de clientes" + e.getMessage());
         }
         return cliente;
-        
 
     }
 
@@ -114,15 +123,18 @@ public class ClientesDatos {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                 Cliente client = new Cliente();
-                 client.setIdCliente(rs.getInt("idCliente"));
-                 client.setNombre(rs.getString("nombre"));
-                 client.setApellido(rs.getString("apellido"));
-                 client.setDni(rs.getInt("dni"));
-                 client.setTelefono(rs.getInt("telefono"));
-                 Paquete paquete = PaqueteDatos.buscarPaquetePorId(rs.getInt("idPaquete"));
-                 client.setPaquete(paquete);
-                 listaclient.add(client);
+                Cliente client = new Cliente();
+                client.setIdCliente(rs.getInt("idCliente"));
+                client.setNombre(rs.getString("nombre"));
+                client.setApellido(rs.getString("apellido"));
+                client.setDni(rs.getInt("dni"));
+                client.setTelefono(rs.getInt("telefono"));
+                Paquete paquete = PaqueteDatos.buscarPaquetePorId(rs.getInt("idPaquete"));
+                client.setPaquete(paquete);
+                client.setCantPersonas(rs.getInt("cantPersonas"));
+                client.setImporteTotal(rs.getDouble("importeTotal"));
+                client.setAbonado(rs.getBoolean("abonado"));
+                listaclient.add(client);
             }
             ps.close();
 
@@ -131,11 +143,12 @@ public class ClientesDatos {
         }
         return listaclient;
     }
-    public static void eliminarCliente(int idCliente){
-        String eliminarSqul="Delete from Cliente where idCliente=?";
+
+    public static void eliminarCliente(int idCliente) {
+        String eliminarSqul = "Delete from Cliente where idCliente=?";
         try {
-            ps=con.prepareStatement(eliminarSqul);
-            ps.setInt(1,idCliente);
+            ps = con.prepareStatement(eliminarSqul);
+            ps.setInt(1, idCliente);
             int fila = ps.executeUpdate();
             if (fila == 1) {
                 JOptionPane.showMessageDialog(null, "Cliente Eliminado");
@@ -144,7 +157,7 @@ public class ClientesDatos {
             }
             ps.close();
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error al acceder a la base de datos de Cliente");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos de Cliente");
         }
     }
 }
