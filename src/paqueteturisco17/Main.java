@@ -32,12 +32,12 @@ public class Main {
 //            }
 //        });
          Paquete paquete1 = PaqueteDatos.buscarPaquetePorId(1);
-         Cliente cliente = new Cliente(1,"Hernan", "Coleman", 4589632, 487956, paquete1);
-//         ClientesDatos.guardarCliente(cliente);
+         Cliente cliente = new Cliente("Hernan", "Coleman", 4589632, 487956, paquete1);
+         ClientesDatos.guardarCliente(cliente);
 //         System.out.println(ClientesDatos.buscarClientes(1));
 //         ClientesDatos.modificarclientes(cliente);
 //         System.out.println(ClientesDatos.listaclientes());
-         ClientesDatos.eliminarCliente(1);
+//         ClientesDatos.eliminarCliente(1);
     }
     
     
