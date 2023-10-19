@@ -31,13 +31,13 @@ public class Main {
 //                new Menu().setVisible(true);
 //            }
 //        });
-        Paquete paquete1 = PaqueteDatos.buscarPaquetePorId(9);
-        Cliente cliente = new Cliente(5,"Martin", "Coleman", 4589632, 487956, paquete1,2, 4856.32,false);
+//        Paquete paquete1 = PaqueteDatos.buscarPaquetePorId(9);
+//        Cliente cliente = new Cliente(5,"Martin", "Coleman", 4589632, 487956, paquete1,2, 4856.32,false);
 //         ClientesDatos.guardarCliente(cliente);
 //         System.out.println(ClientesDatos.buscarClientes(5));
 //        ClientesDatos.modificarclientes(cliente);
 //        System.out.println(ClientesDatos.listaclientes());
-        ClientesDatos.eliminarCliente(5);
+//        ClientesDatos.eliminarCliente(5);
     }
     
     
