@@ -2,8 +2,11 @@ package Vistas;
 
 import Datos.ClientesDatos;
 import Datos.PaqueteDatos;
+import Datos.PasajeDatos;
+import Entidades.Ciudad;
 import Entidades.Cliente;
 import Entidades.Paquete;
+import Entidades.Pasaje;
 import Entidades.Transporte;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
@@ -32,7 +35,7 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
-            if (c == 1 || c == 2 || c == 3) {
+            if (c == 2 || c == 3 || c == 4) {
                 return true;
             }
             return false;
@@ -92,8 +95,8 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         initComponents();
         armarCabecera();
         cargarTabla();
-        elejirColumanasFechas(1, 2);
-        agregarcomboBox(3, this.jTable);
+        elejirColumanasFechas(2, 3);
+        agregarcomboBox(4, this.jTable);
     }
 
     @SuppressWarnings("unchecked")
@@ -392,7 +395,7 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void armarCabecera() {
-
+        modelo.addColumn("ID Paquete");
         modelo.addColumn("Ciudad de Destino");
         modelo.addColumn("Fecha de Ingreso");
         modelo.addColumn("Fecha de Salida");
@@ -405,7 +408,7 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
 
         double temp = 0;
         for (Paquete paq : PaqueteDatos.listarPaquete()) {
-
+            int idP=paq.getIdPaquete();
             String ciuDestino = paq.getCiuDestino().getNombre();
             LocalDate fIng = paq.getAlojamiento().getFechaIngreso();
             LocalDate fSal = paq.getAlojamiento().getFechaSalida();
@@ -421,7 +424,7 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
             } else {
                 temp = importe;
             }
-            modelo.addRow(new Object[]{ciuDestino, fIng, fSal, trans, Math.round(temp * 100.0) / 100.0});
+            modelo.addRow(new Object[]{idP,ciuDestino, fIng, fSal, trans, Math.round(temp * 100.0) / 100.0});
 
         }
     }
@@ -439,9 +442,24 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
     private void agregarcomboBox(int columna, JTable tabla) {
         TableColumn tc = tabla.getColumnModel().getColumn(columna);
         JComboBox comboBox = new JComboBox();
-        comboBox.addItem(Transporte.TREN);
-        comboBox.addItem(Transporte.AVIÓN);
-        comboBox.addItem(Transporte.COLECTIVO);
+        
+        int filaSelec=jTable.getSelectedRow();
+        if(filaSelec!=-1){
+        int paqueteSelec=Integer.parseInt(jTable.getValueAt(filaSelec, 0).toString());
+        System.out.println(paqueteSelec);
+        Paquete paq=PaqueteDatos.buscarPaquetePorId(paqueteSelec);
+        Ciudad ciudad=paq.getCiuOrigen();
+            
+        for (Pasaje pas : PasajeDatos.listarPasajesxCiudad(ciudad)) {
+        comboBox.addItem(pas);
+        }
+        
+        
+    }
+        
+//        comboBox.addItem(Transporte.TREN);
+//        comboBox.addItem(Transporte.AVIÓN);
+//        comboBox.addItem(Transporte.COLECTIVO);
         tc.setCellEditor(new DefaultCellEditor(comboBox));
     }
 
