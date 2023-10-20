@@ -12,6 +12,7 @@ public class Alojamiento {
     private Ciudad ciuDestino;
     private LocalDate fechaIngreso;
     private LocalDate fechaSalida;
+    private TipoAlojamiento alojamiento;    
     private Servicio servicio;//enum
     private double importeDiario;
     private boolean estado;
@@ -19,20 +20,22 @@ public class Alojamiento {
     public Alojamiento() {
     }
 
-    public Alojamiento(Ciudad ciuDestino, LocalDate fechaIngreso, LocalDate fechaSalida, Servicio servicio, double importeDiario, boolean estado) {
+    public Alojamiento(Ciudad ciuDestino, LocalDate fechaIngreso, LocalDate fechaSalida, TipoAlojamiento alojamiento, Servicio servicio, double importeDiario, boolean estado) {
         this.ciuDestino = ciuDestino;
         this.fechaIngreso = fechaIngreso;
         this.fechaSalida = fechaSalida;
+        this.alojamiento = alojamiento;
         this.servicio = servicio;
         this.importeDiario = importeDiario;
         this.estado = estado;
     }
 
-    public Alojamiento(int idAlojamiento, Ciudad ciuDestino, LocalDate fechaIngreso, LocalDate fechaSalida, Servicio servicio, double importeDiario, boolean estado) {
+    public Alojamiento(int idAlojamiento, Ciudad ciuDestino, LocalDate fechaIngreso, LocalDate fechaSalida, TipoAlojamiento alojamiento, Servicio servicio, double importeDiario, boolean estado) {
         this.idAlojamiento = idAlojamiento;
         this.ciuDestino = ciuDestino;
         this.fechaIngreso = fechaIngreso;
         this.fechaSalida = fechaSalida;
+        this.alojamiento = alojamiento;
         this.servicio = servicio;
         this.importeDiario = importeDiario;
         this.estado = estado;
@@ -70,6 +73,14 @@ public class Alojamiento {
         this.fechaSalida = fechaSalida;
     }
 
+    public TipoAlojamiento getAlojamiento() {
+        return alojamiento;
+    }
+
+    public void setAlojamiento(TipoAlojamiento alojamiento) {
+        this.alojamiento = alojamiento;
+    }
+
     public Servicio getServicio() {
         return servicio;
     }
@@ -96,9 +107,9 @@ public class Alojamiento {
 
     @Override
     public String toString() {
-        return   "Ingreso: " + fechaIngreso + " / Salida: " + fechaSalida + " / Servicio: " + servicio + " / Importe Diario: $ " + importeDiario;
+        return "Alojamiento{" + "idAlojamiento=" + idAlojamiento + ", ciuDestino=" + ciuDestino + ", fechaIngreso=" + fechaIngreso + ", fechaSalida=" + fechaSalida + ", alojamiento=" + alojamiento + ", servicio=" + servicio + ", importeDiario=" + importeDiario + ", estado=" + estado + '}';
     }
 
-    
+   
 
 }
