@@ -44,60 +44,60 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         }
     };
 
-    private class JDateChooserCellEditor extends AbstractCellEditor implements TableCellEditor {
-
-        private JDateChooser dateChooser;
-        private Date selectedDate;
-
-        public JDateChooserCellEditor() {
-            dateChooser = new JDateChooser();
-            dateChooser.setDateFormatString("yyyy-MM-dd"); // Establece el formato de fecha según tus necesidades
-            // Agregar un PropertyChangeListener para capturar la fecha seleccionada
-            dateChooser.addPropertyChangeListener("date", new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent evt) {
-                    if (evt.getPropertyName().equals("date")) {
-                        selectedDate = (Date) evt.getNewValue();
-                        stopCellEditing();
-                    }
-                }
-            });
-        }
-
-        @Override
-        public Object getCellEditorValue() {
-            return selectedDate;
-        }
-
-        @Override
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            if (value instanceof Date) {
-                selectedDate = (Date) value;
-                dateChooser.setDate(selectedDate);
-            }
-            return dateChooser;
-        }
-    }
-
-    private class DateRenderer extends DefaultTableCellRenderer {
-
-        private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        @Override
-        protected void setValue(Object value) {
-            if (value instanceof Date) {
-                setText(dateFormat.format((Date) value));
-            } else {
-                super.setValue(value);
-            }
-        }
-    }
+//    private class JDateChooserCellEditor extends AbstractCellEditor implements TableCellEditor {
+//
+//        private JDateChooser dateChooser;
+//        private Date selectedDate;
+//
+//        public JDateChooserCellEditor() {
+//            dateChooser = new JDateChooser();
+//            dateChooser.setDateFormatString("yyyy-MM-dd"); // Establece el formato de fecha según tus necesidades
+//            // Agregar un PropertyChangeListener para capturar la fecha seleccionada
+//            dateChooser.addPropertyChangeListener("date", new PropertyChangeListener() {
+//                @Override
+//                public void propertyChange(PropertyChangeEvent evt) {
+//                    if (evt.getPropertyName().equals("date")) {
+//                        selectedDate = (Date) evt.getNewValue();
+//                        stopCellEditing();
+//                    }
+//                }
+//            });
+//        }
+//
+//        @Override
+//        public Object getCellEditorValue() {
+//            return selectedDate;
+//        }
+//
+//        @Override
+//        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+//            if (value instanceof Date) {
+//                selectedDate = (Date) value;
+//                dateChooser.setDate(selectedDate);
+//            }
+//            return dateChooser;
+//        }
+//    }
+//
+//    private class DateRenderer extends DefaultTableCellRenderer {
+//
+//        private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        @Override
+//        protected void setValue(Object value) {
+//            if (value instanceof Date) {
+//                setText(dateFormat.format((Date) value));
+//            } else {
+//                super.setValue(value);
+//            }
+//        }
+//    }
 
     public ReservaPaquete() {
         initComponents();
         armarCabecera();
         cargarTabla();
-        elejirColumanasFechas(4, 5);
+//        elejirColumanasFechas(4, 5);
         
     }
 
@@ -449,15 +449,15 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
          jTable.setRowSorter(orden);
     }
 
-    private void elejirColumanasFechas(int colum1, int colum2) {
-        JDateChooserCellEditor fechaIngreso = new JDateChooserCellEditor();
-        JDateChooserCellEditor FechaSalida = new JDateChooserCellEditor();
-        this.jTable.getColumnModel().getColumn(colum1).setCellEditor(fechaIngreso);
-        this.jTable.getColumnModel().getColumn(colum2).setCellEditor(FechaSalida);
-        // Configura el renderizador para mostrar las fechas en el formato deseado en la tabla
-        this.jTable.getColumnModel().getColumn(colum1).setCellRenderer(new DateRenderer());
-        this.jTable.getColumnModel().getColumn(colum2).setCellRenderer(new DateRenderer());
-    }
+//    private void elejirColumanasFechas(int colum1, int colum2) {
+//        JDateChooserCellEditor fechaIngreso = new JDateChooserCellEditor();
+//        JDateChooserCellEditor FechaSalida = new JDateChooserCellEditor();
+//        this.jTable.getColumnModel().getColumn(colum1).setCellEditor(fechaIngreso);
+//        this.jTable.getColumnModel().getColumn(colum2).setCellEditor(FechaSalida);
+//        // Configura el renderizador para mostrar las fechas en el formato deseado en la tabla
+//        this.jTable.getColumnModel().getColumn(colum1).setCellRenderer(new DateRenderer());
+//        this.jTable.getColumnModel().getColumn(colum2).setCellRenderer(new DateRenderer());
+//    }
 
    
     private void limpiar() {

@@ -6,18 +6,24 @@ import Entidades.Alojamiento;
 import Entidades.Ciudad;
 import Entidades.Servicio;
 import Entidades.TipoAlojamiento;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.text.SimpleDateFormat;
+import javax.swing.AbstractCellEditor;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 
 public class GestionAlojamiento extends javax.swing.JInternalFrame {
@@ -31,6 +37,55 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
             }
         }
     };
+
+    private class JDateChooserCellEditor extends AbstractCellEditor implements TableCellEditor {
+
+        private JDateChooser dateChooser;
+        private java.util.Date selectedDate;
+
+        public JDateChooserCellEditor() {
+            dateChooser = new JDateChooser();
+            dateChooser.setDateFormatString("yyyy-MM-dd"); // Establece el formato de fecha según tus necesidades
+            // Agregar un PropertyChangeListener para capturar la fecha seleccionada
+            dateChooser.addPropertyChangeListener("date", new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent evt) {
+                    if (evt.getPropertyName().equals("date")) {
+                        selectedDate = (java.util.Date) evt.getNewValue();
+                        stopCellEditing();
+                    }
+                }
+            });
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return selectedDate;
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            if (value instanceof java.util.Date) {
+                selectedDate = (java.util.Date) value;
+                dateChooser.setDate(selectedDate);
+            }
+            return dateChooser;
+        }
+    }
+
+    private class DateRenderer extends DefaultTableCellRenderer {
+
+        private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        @Override
+        protected void setValue(Object value) {
+            if (value instanceof java.util.Date) {
+                setText(dateFormat.format((java.util.Date) value));
+            } else {
+                super.setValue(value);
+            }
+        }
+    }
 
     /**
      * Creates new form GestionAlojamiento
@@ -47,6 +102,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         jTable1.setSelectionBackground(Color.green);
         agregarcomboBox(5, this.jTable1);
         agregarcomboalo(4, this.jTable1);
+        elejirColumanasFechas(2, 3);
     }
 
     /**
@@ -390,20 +446,31 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         if (filaSelecionada != -1) { // Verifica si se ha seleccionado una fila válida
             int idAlo = Integer.parseInt(modelo.getValueAt(filaSelecionada, 0).toString());
             String ciu = modelo.getValueAt(filaSelecionada, 1).toString();
-            // Convierte las cadenas de fecha a objetos LocalDate
-            String ciuI = modelo.getValueAt(filaSelecionada, 2).toString();
-            LocalDate ciuInicio = LocalDate.parse(ciuI);
-            String ciuS = modelo.getValueAt(filaSelecionada, 3).toString();
-            LocalDate ciuSalida = LocalDate.parse(ciuS);
+
+            // Obtén la fecha como un objeto java.util.Date
+            java.util.Date utilDateInicio = (java.util.Date) modelo.getValueAt(filaSelecionada, 2);
+            java.util.Date utilDateSalida = (java.util.Date) modelo.getValueAt(filaSelecionada, 3);
+            
+            if (utilDateInicio.after(utilDateSalida)) {
+                JOptionPane.showMessageDialog(null, "La fecha de ingreso tiene que ser antes de la fecha de salida", "Loco Fíjate", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Convierte las fechas de java.util.Date a java.sql.Date
+            java.sql.Date sqlDateInicio = new java.sql.Date(utilDateInicio.getTime());
+            java.sql.Date sqlDateSalida = new java.sql.Date(utilDateSalida.getTime());
+
             TipoAlojamiento alo = (TipoAlojamiento) modelo.getValueAt(filaSelecionada, 4);
             Servicio ser = (Servicio) modelo.getValueAt(filaSelecionada, 5);
             double imp = Double.parseDouble(modelo.getValueAt(filaSelecionada, 6).toString());
             String est = modelo.getValueAt(filaSelecionada, 7).toString();
-            AlojamientoDatos.modificarAlojamiento(new Alojamiento(idAlo, CiudadDatos.buscarCiudad(ciu), ciuInicio, ciuSalida, alo, ser, imp, activo1(est)));
+
+            AlojamientoDatos.modificarAlojamiento(new Alojamiento(idAlo, CiudadDatos.buscarCiudad(ciu), sqlDateInicio.toLocalDate(), sqlDateSalida.toLocalDate(), alo, ser, imp, activo1(est)));
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila antes de intentar actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         modelo.fireTableDataChanged();
+
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jcCiuBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcCiuBuscarActionPerformed
@@ -454,6 +521,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         this.jtImporteDiario.setEditable(ok);
         this.jcCiuDestino.setEnabled(ok);
         this.jcAlo.setEditable(ok);
+        this.jcAlo.setEnabled(ok);
         this.jcServicio.setEnabled(ok);
         this.jdateFechaIngre.setEnabled(ok);
         this.jdateFechaSalida.setEnabled(ok);
@@ -538,14 +606,24 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         this.jcAlo.addItem(TipoAlojamiento.CABAÑA);
 
     }
-    
-    private void agregarcomboalo(int columna, JTable tabla){
+
+    private void agregarcomboalo(int columna, JTable tabla) {
         TableColumn tc = tabla.getColumnModel().getColumn(columna);
         JComboBox comboBox = new JComboBox();
         comboBox.addItem(TipoAlojamiento.HOTEL);
         comboBox.addItem(TipoAlojamiento.DEPARTAMENTO);
         comboBox.addItem(TipoAlojamiento.CABAÑA);
         tc.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+
+    private void elejirColumanasFechas(int colum1, int colum2) {
+        GestionAlojamiento.JDateChooserCellEditor fechaIngreso = new GestionAlojamiento.JDateChooserCellEditor();
+        GestionAlojamiento.JDateChooserCellEditor FechaSalida = new GestionAlojamiento.JDateChooserCellEditor();
+        this.jTable1.getColumnModel().getColumn(colum1).setCellEditor(fechaIngreso);
+        this.jTable1.getColumnModel().getColumn(colum2).setCellEditor(FechaSalida);
+        // Configura el renderizador para mostrar las fechas en el formato deseado en la tabla
+        this.jTable1.getColumnModel().getColumn(colum1).setCellRenderer(new GestionAlojamiento.DateRenderer());
+        this.jTable1.getColumnModel().getColumn(colum2).setCellRenderer(new GestionAlojamiento.DateRenderer());
     }
 
 //    private void borrarFila(Alojamiento alo) {
