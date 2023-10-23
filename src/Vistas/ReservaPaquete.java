@@ -7,6 +7,7 @@ import Entidades.Ciudad;
 import Entidades.Cliente;
 import Entidades.Paquete;
 import Entidades.Pasaje;
+import Entidades.TipoAlojamiento;
 import Entidades.Transporte;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
@@ -26,6 +27,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -35,7 +37,7 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
-            if (c == 2 || c == 3 || c == 4) {
+            if (c == 4 || c == 5) {
                 return true;
             }
             return false;
@@ -95,8 +97,8 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         initComponents();
         armarCabecera();
         cargarTabla();
-        elejirColumanasFechas(2, 3);
-        agregarcomboBox(4, this.jTable);
+        elejirColumanasFechas(4, 5);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -109,15 +111,12 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jtfImporteTotal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jtfApellido = new javax.swing.JTextField();
         jtfDni = new javax.swing.JTextField();
         jtfTelefono = new javax.swing.JTextField();
         jbAgregar = new javax.swing.JButton();
-        jbModificar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         radioSino = new javax.swing.JRadioButton();
@@ -129,8 +128,10 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         jTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jtfNombre = new javax.swing.JTextField();
-        jtxCosto = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -155,10 +156,6 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
             }
         });
 
-        jbModificar.setText("Modificar");
-
-        jLabel8.setText("Costo del Paquete por Persona:");
-
         jLabel11.setText("Abonar: ");
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -166,7 +163,7 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
 
         radioSino.setText("Si / No");
 
-        jLabel2.setText("Buscar Ciudad: ");
+        jLabel2.setText("Buscar Pais: ");
 
         jbSalir.setText("Salir");
 
@@ -185,75 +182,92 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable);
 
-        jLabel3.setText("Reserva de Cliente");
+        jLabel3.setText("Reserva de Cliente:");
 
         jLabel9.setText("$");
+
+        jLabel10.setText("Id Paquete");
+
+        jLabel14.setText("importe");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jbBuscar))
-                    .addComponent(jLabel3)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbSalir))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radioSino)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbAgregar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 550, Short.MAX_VALUE)
-                                .addComponent(jbSalir))))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jtxCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel9)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel12)
-                            .addGap(18, 18, 18)
-                            .addComponent(jtfPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbModificar))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(19, 19, 19)
+                                .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbBuscar)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(17, 17, 17))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(9, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jtfNombre))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(40, 40, 40)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel11)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(22, 22, 22)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel5))
+                                        .addGap(148, 148, 148)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel14)))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jtfApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                                    .addComponent(jtfDni)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(17, 17, 17))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(345, 345, 345)
+                                    .addComponent(jtfDni)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(radioSino)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jbAgregar)))))
+                        .addGap(96, 384, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 934, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(30, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
+                .addGap(399, 399, 399))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -265,150 +279,145 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBuscar))
-                .addGap(27, 27, 27)
+                    .addComponent(jbBuscar)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(68, 68, 68)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jtxCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel12)
-                            .addComponent(jtfPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jbModificar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(radioSino))
-                        .addGap(33, 33, 33))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jtfImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbAgregar)
-                                .addGap(28, 28, 28))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbSalir)
-                                .addGap(18, 18, 18))))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jtfPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(radioSino))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel14)
+                    .addComponent(jbAgregar))
+                .addGap(7, 7, 7)
+                .addComponent(jbSalir)
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-        try {
-            int dni = Integer.parseInt(jtfDni.getText());
-            int tel = Integer.parseInt(jtfTelefono.getText());
-            int cantP = Integer.parseInt(jtfPersona.getText());
-            double importe = Double.parseDouble(jtxCosto.getText());
-            if (dni < 0 || tel < 0 || cantP < 0 || importe < 0) {
-                JOptionPane.showMessageDialog(null, "Debe ingresar números positivos");
-                limpiar();
-            }
-            if (jtfApellido.getText().isEmpty() || jtfNombre.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "No debe quedar campos vacíos");
-                return;
-            }
-            String apellido = jtfApellido.getText();
-            String nombre = jtfNombre.getText();
-            int fila = jTable.getSelectedRow();
-            if (fila != -1) {
-
-            } else {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar una fila");
-            }
-            boolean abonar = radioSino.isSelected();
-//            Cliente cliente = new Cliente(nombre, apellido, tel, dni, paquete, cantP, importe * cantP, abonar);
-//            ClientesDatos.guardarCliente(cliente);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Para los campos dni,teléfono,cantidad de personas,importe");
-            limpiar();
-        }
+//        try {
+//            int dni = Integer.parseInt(jtfDni.getText());
+//            int tel = Integer.parseInt(jtfTelefono.getText());
+//            int cantP = Integer.parseInt(jtfPersona.getText());
+//            double importe = Double.parseDouble(jtxCosto.getText());
+//            if (dni < 0 || tel < 0 || cantP < 0 || importe < 0) {
+//                JOptionPane.showMessageDialog(null, "Debe ingresar números positivos");
+//                limpiar();
+//            }
+//            if (jtfApellido.getText().isEmpty() || jtfNombre.getText().isEmpty()) {
+//                JOptionPane.showMessageDialog(null, "No debe quedar campos vacíos");
+//                return;
+//            }
+//            String apellido = jtfApellido.getText();
+//            String nombre = jtfNombre.getText();
+//            int fila = jTable.getSelectedRow();
+//            if (fila != -1) {
+//
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Debe seleccionar una fila");
+//            }
+//            boolean abonar = radioSino.isSelected();
+////            Cliente cliente = new Cliente(nombre, apellido, tel, dni, paquete, cantP, importe * cantP, abonar);
+////            ClientesDatos.guardarCliente(cliente);
+//        } catch (NumberFormatException e) {
+//            JOptionPane.showMessageDialog(null, "Para los campos dni,teléfono,cantidad de personas,importe");
+//            limpiar();
+//        }
     }//GEN-LAST:event_jbAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
     private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbBuscar;
-    private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JTextField jtfApellido;
     private javax.swing.JTextField jtfBuscar;
     private javax.swing.JTextField jtfDni;
-    private javax.swing.JTextField jtfImporteTotal;
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfPersona;
     private javax.swing.JTextField jtfTelefono;
-    private javax.swing.JTextField jtxCosto;
     private javax.swing.JRadioButton radioSino;
     // End of variables declaration//GEN-END:variables
 
     private void armarCabecera() {
-        modelo.addColumn("ID Paquete");
+        
+        modelo.addColumn("Ciudad de Origen");
+        modelo.addColumn("Transporte");
         modelo.addColumn("Ciudad de Destino");
+        modelo.addColumn("Alojamiento");
         modelo.addColumn("Fecha de Ingreso");
         modelo.addColumn("Fecha de Salida");
-        modelo.addColumn("Tipo de Transporte");
         modelo.addColumn("Importe");
+        modelo.addColumn("Temporada");
         jTable.setModel(modelo);
     }
 
     private void cargarTabla() {
 
         double temp = 0;
+        String temporada = "";        
         for (Paquete paq : PaqueteDatos.listarPaquete()) {
-            int idP=paq.getIdPaquete();
+            int idP = paq.getIdPaquete();
             String ciuDestino = paq.getCiuDestino().getNombre();
             LocalDate fIng = paq.getAlojamiento().getFechaIngreso();
             LocalDate fSal = paq.getAlojamiento().getFechaSalida();
@@ -417,16 +426,27 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
             double impTrans = paq.getPasaje().getImporte();
             double impAloja = paq.getAlojamiento().getImporteDiario();
             double importe = impTrans + impAloja * dias;
+            
+            String ciuOrigen = paq.getCiuOrigen().getNombre();
+            TipoAlojamiento aloj = paq.getAlojamiento().getAlojamiento();
+            
+            
             if (fIng.getMonth() == Month.JANUARY || fIng.getMonth() == Month.JULY) {
                 temp = importe * 1.3;
+                temporada= "Alta";
             } else if (fIng.getMonth() == Month.FEBRUARY || fIng.getMonth() == Month.JUNE) {
                 temp = importe * 1.15;
+                temporada= "Media";
             } else {
                 temp = importe;
+                temporada= "Baja";
             }
-            modelo.addRow(new Object[]{idP,ciuDestino, fIng, fSal, trans, Math.round(temp * 100.0) / 100.0});
+            modelo.addRow(new Object[]{ciuOrigen, trans, ciuDestino, aloj, fIng, fSal, Math.round(temp * 100.0) / 100.0, temporada});
 
         }
+        //Permite Ordenar las columnas de la tabla
+         TableRowSorter<DefaultTableModel> orden = new TableRowSorter<>(modelo);
+         jTable.setRowSorter(orden);
     }
 
     private void elejirColumanasFechas(int colum1, int colum2) {
@@ -439,34 +459,11 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         this.jTable.getColumnModel().getColumn(colum2).setCellRenderer(new DateRenderer());
     }
 
-    private void agregarcomboBox(int columna, JTable tabla) {
-        TableColumn tc = tabla.getColumnModel().getColumn(columna);
-        JComboBox comboBox = new JComboBox();
-        
-        int filaSelec=jTable.getSelectedRow();
-        if(filaSelec!=-1){
-        int paqueteSelec=Integer.parseInt(jTable.getValueAt(filaSelec, 0).toString());
-        System.out.println(paqueteSelec);
-        Paquete paq=PaqueteDatos.buscarPaquetePorId(paqueteSelec);
-        Ciudad ciudad=paq.getCiuOrigen();
-            
-        for (Pasaje pas : PasajeDatos.listarPasajesxCiudad(ciudad)) {
-        comboBox.addItem(pas);
-        }
-        
-        
-    }
-        
-//        comboBox.addItem(Transporte.TREN);
-//        comboBox.addItem(Transporte.AVIÓN);
-//        comboBox.addItem(Transporte.COLECTIVO);
-        tc.setCellEditor(new DefaultCellEditor(comboBox));
-    }
-
+   
     private void limpiar() {
         jtfDni.setText("");
         jtfTelefono.setText("");
         jtfPersona.setText("");
-        jtxCosto.setText("");
+       
     }
 }
