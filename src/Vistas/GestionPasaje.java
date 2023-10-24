@@ -283,7 +283,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
 
     private void jBCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCrearActionPerformed
        try{
-        if(jCBCiudad.getSelectedItem()==null&&jTFImporte.getText().isEmpty()&&jCBTrans.getSelectedItem()==null){
+        if(jCBCiudad.getSelectedItem()==null||jTFImporte.getText().isEmpty()||jCBTrans.getSelectedItem()==null){
            JOptionPane.showMessageDialog(null, "No debe haber campos vacíos al momento de crear","Error", JOptionPane.ERROR_MESSAGE);
            limpiar();
            return;

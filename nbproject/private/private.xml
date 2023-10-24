@@ -4,11 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Jeremias/Desktop/arg%20programa/Proyecto%20Final/PaqueteTurisco17/src/Vistas/ReservaPaquete.java</file>
+            <file>file:/C:/Users/Jeremias/Desktop/arg%20programa/Proyecto%20Final/PaqueteTurisco17/src/Datos/PaqueteDatos.java</file>
+            <file>file:/C:/Users/Jeremias/Desktop/arg%20programa/Proyecto%20Final/PaqueteTurisco17/src/paqueteturisco17/Main.java</file>
             <file>file:/C:/Users/Jeremias/Desktop/arg%20programa/Proyecto%20Final/PaqueteTurisco17/src/Vistas/GestionPasaje.java</file>
             <file>file:/C:/Users/Jeremias/Desktop/arg%20programa/Proyecto%20Final/PaqueteTurisco17/src/Vistas/CargarPaquete.java</file>
-            <file>file:/C:/Users/Jeremias/Desktop/arg%20programa/Proyecto%20Final/PaqueteTurisco17/src/Entidades/Cliente.java</file>
+            <file>file:/C:/Users/Jeremias/Desktop/arg%20programa/Proyecto%20Final/PaqueteTurisco17/src/Entidades/Paquete.java</file>
+            <file>file:/C:/Users/Jeremias/Desktop/arg%20programa/Proyecto%20Final/PaqueteTurisco17/src/Datos/PasajeDatos.java</file>
             <file>file:/C:/Users/Jeremias/Desktop/arg%20programa/Proyecto%20Final/PaqueteTurisco17/src/Vistas/Menu.java</file>
-            <file>file:/C:/Users/Jeremias/Desktop/arg%20programa/Proyecto%20Final/PaqueteTurisco17/src/Datos/ClientesDatos.java</file>
+            <file>file:/C:/Users/Jeremias/Desktop/arg%20programa/Proyecto%20Final/PaqueteTurisco17/src/Datos/AlojamientoDatos.java</file>
         </group>
     </open-files>
 </project-private>

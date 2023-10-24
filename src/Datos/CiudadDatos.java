@@ -69,7 +69,7 @@ public class CiudadDatos {
 
     public static List<Ciudad> listarCiu() {
         List<Ciudad> listaCiu = new ArrayList<>();
-        String sql = "select * from ciudad";
+        String sql = "select * from ciudad group by nombre";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -156,7 +156,7 @@ public class CiudadDatos {
 
     public static List<Ciudad> listarCiuxTrue() {
         List<Ciudad> listaCiu = new ArrayList<>();
-        String sql = "select * from ciudad where estado=1";
+        String sql = "select * from ciudad where estado=1 group by nombre";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();

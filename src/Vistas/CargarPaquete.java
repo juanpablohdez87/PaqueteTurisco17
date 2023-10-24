@@ -36,11 +36,10 @@ private DefaultTableModel modelo = new DefaultTableModel(){
      */
     public CargarPaquete() {
         initComponents();
-//        booleanComponentes(true, false, false, false);
         cargarComboBox();
          limpiar();
          armarCabecera();
-//         cargarTabla();
+         cargarTabla();
         
     }
 
@@ -79,13 +78,19 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         setMaximizable(true);
         setTitle("Cargar Paquete");
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(255, 255, 153));
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 255, 255));
         jLabel1.setText("Ciudad de Origen:");
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel2.setBackground(new java.awt.Color(255, 255, 153));
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 255, 255));
         jLabel2.setText("Ciudad de Destino:");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setBackground(new java.awt.Color(255, 255, 153));
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 255, 255));
         jLabel3.setText("Alojamiento:");
 
         jcbCiuOrigen.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +105,9 @@ private DefaultTableModel modelo = new DefaultTableModel(){
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setBackground(new java.awt.Color(255, 255, 153));
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 255, 255));
         jLabel4.setText("Tipo deTransporte:");
 
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -134,7 +141,9 @@ private DefaultTableModel modelo = new DefaultTableModel(){
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel5.setBackground(new java.awt.Color(255, 255, 153));
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 204, 204));
         jLabel5.setText("Paquetes Predeterminados");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -163,7 +172,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jcbPasaje, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(213, Short.MAX_VALUE))))
+                        .addContainerGap(204, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -222,7 +231,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearActionPerformed
-    if (jcbCiuOrigen.getSelectedItem()!=null&&jcbPasaje.getSelectedItem()!=null&&jcbAlojamiento.getSelectedItem()!=null&&jcbCiuDestino.getSelectedItem()!=null){
+    if (jcbCiuOrigen.getSelectedItem()!=null||jcbPasaje.getSelectedItem()!=null||jcbAlojamiento.getSelectedItem()!=null||jcbCiuDestino.getSelectedItem()!=null){
              Ciudad ciudadOrigen = (Ciudad) jcbCiuOrigen.getSelectedItem();
              Ciudad ciudadDestino = (Ciudad) jcbCiuDestino.getSelectedItem();
              if(ciudadOrigen.equals(ciudadDestino)){
@@ -290,12 +299,6 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     private javax.swing.JComboBox<Pasaje> jcbPasaje;
     // End of variables declaration//GEN-END:variables
 
-//    private void booleanComponentes(boolean okOri, boolean okDest, boolean okAlo, boolean okPasal) {
-//        this.jcbCiuOrigen.setEnabled(okOri);
-//        this.jcbCiuDestino.setEnabled(okDest);
-//        this.jcbAlojamiento.setEnabled(okAlo);
-//        this.jcbPasaje.setEnabled(okPasal);
-//    }
 
     private void cargarComboBox() {
         for (Ciudad ciu : CiudadDatos.listarCiuxTrue()) {

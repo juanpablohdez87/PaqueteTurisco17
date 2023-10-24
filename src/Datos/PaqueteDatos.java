@@ -13,6 +13,8 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class PaqueteDatos {
@@ -166,5 +168,31 @@ public class PaqueteDatos {
             JOptionPane.showMessageDialog(null, "Error al acceso a la tabla paquete" + ex.getMessage());
         }
     }
-
+    public static List<Paquete> busquedaPaquetexPais(String pais){
+        List<Paquete> listaPaquete = new ArrayList<>();
+//        String sql="SELECT * FROM paquete INNER JOIN ciudad ON paquete.idCiuDestino = ciudad.idCiudad WHERE ciudad.pais = ?";
+        String sqlBusqueda="select Paquete.* from Paquete,Ciudad where Paquete.idCiuDestino = Ciudad.idCiudad and Ciudad.pais = ?";
+        try {
+            ps=con.prepareStatement(sqlBusqueda);
+            ps.setString(1,pais);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Paquete paquete = new Paquete();
+                paquete.setIdPaquete(rs.getInt("idPaquete"));
+                
+                paquete.setCiuOrigen(CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuOrigen")));
+                paquete.setCiuDestino(CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuDestino")));
+                paquete.setAlojamiento(AlojamientoDatos.buscarAlojamiento(rs.getInt("idAlojamiento")));
+                paquete.setPasaje(PasajeDatos.buscarPasaje(rs.getInt("idPasaje")));
+                listaPaquete.add(paquete);
+                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla paquete "+ex.getMessage());
+        }
+        return listaPaquete;
+        
+    }
+  
 }
