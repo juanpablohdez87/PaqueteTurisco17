@@ -14,7 +14,7 @@ import Entidades.Servicio;
 import Entidades.TipoAlojamiento;
 import Entidades.Transporte;
 import Vistas.Menu;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -43,6 +43,10 @@ public class Main {
 //    System.out.println(paq);
 //}
 for(Paquete paq:PaqueteDatos.busquedaPaquetexPais("Argentina")){
+    System.out.println(paq);
+}
+
+for(Paquete paq:PaqueteDatos.busquedaPaquetexFecha(Date.valueOf("2023-10-05"),Date.valueOf("2023-10-15"))){
     System.out.println(paq);
 }
 

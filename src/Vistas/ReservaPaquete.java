@@ -478,10 +478,10 @@ habilitarCampo();        // TODO add your handling code here:
                 break;
             case 1:
                jDateChooser1.setEnabled(true);
-                jDateChooser2.setEnabled(true);
-                jtfBuscar.setEnabled(false);
-                jbBuscar.setEnabled(true);
-                break;
+               jDateChooser2.setEnabled(true);
+               jtfBuscar.setEnabled(false);
+               jbBuscar.setEnabled(true);
+               break;
             
         }
 

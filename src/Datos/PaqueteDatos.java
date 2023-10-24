@@ -194,5 +194,29 @@ public class PaqueteDatos {
         return listaPaquete;
         
     }
+    public static List<Paquete> busquedaPaquetexFecha(Date fecha,Date fecha1){
+      String sqlBusqueda="SELECT paquete.* FROM paquete,alojamiento WHERE paquete.idAlojamiento=alojamiento.idAlojamiento and  fechaIngreso='?' and fechaSalida='?'";  
+      List<Paquete> listaPaquete = new ArrayList<>();
+        try {
+            ps=con.prepareStatement(sqlBusqueda);
+            ps.setDate(1, fecha);
+            ps.setDate(2, fecha1);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Paquete paquete = new Paquete();
+                paquete.setIdPaquete(rs.getInt("idPaquete")); 
+                paquete.setCiuOrigen(CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuOrigen")));
+                paquete.setCiuDestino(CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuDestino")));
+                paquete.setAlojamiento(AlojamientoDatos.buscarAlojamiento(rs.getInt("idAlojamiento")));
+                paquete.setPasaje(PasajeDatos.buscarPasaje(rs.getInt("idPasaje")));
+                listaPaquete.add(paquete);
+                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de paquete");
+        }
+        return listaPaquete;
+    }
   
 }
