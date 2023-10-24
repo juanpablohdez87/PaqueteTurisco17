@@ -9,12 +9,15 @@ import Entidades.Ciudad;
 import Entidades.Paquete;
 import Entidades.Pasaje;
 import Entidades.Transporte;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -50,7 +53,13 @@ private DefaultTableModel modelo = new DefaultTableModel(){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/Imagenes/imagTuristica.jpg"));
+        Image image = icon.getImage();
+        jPanel1 = new javax.swing.JPanel(){
+            public void paintComponent(Graphics g){
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        };
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -92,7 +101,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel4.setText("Tipo de Pasaje:");
+        jLabel4.setText("Tipo deTransporte:");
 
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,6 +117,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         jScrollPane2.setViewportView(jTabla);
 
         jbCrear.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbCrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add.png"))); // NOI18N
         jbCrear.setText("Crear");
         jbCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,6 +126,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         });
 
         jbEliminar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete2.png"))); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,35 +148,33 @@ private DefaultTableModel modelo = new DefaultTableModel(){
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jcbPasaje, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jcbCiuOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(31, 31, 31)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcbCiuOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jcbCiuDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jcbAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(213, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jbEliminar)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(jcbAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcbPasaje, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(213, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(244, 244, 244)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jbCrear)))
+                        .addComponent(jbCrear))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jbEliminar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(307, 307, 307)
+                        .addComponent(jLabel5)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -185,15 +194,15 @@ private DefaultTableModel modelo = new DefaultTableModel(){
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jcbAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(38, 38, 38)
                 .addComponent(jbCrear)
-                .addGap(44, 44, 44)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbEliminar)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,7 +215,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -351,7 +360,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
        modelo.addColumn("Alojamiento/Fecha de Ingreso");
        modelo.addColumn("Alojamiento/Fecha de Salida");
        modelo.addColumn("Tipo de Transporte");
-       modelo.addColumn("Importe");
+       modelo.addColumn("Importe Total");
        jTabla.setModel(modelo);
    }    
 }
