@@ -42,13 +42,13 @@ public class Main {
 //for(Paquete paq:PaqueteDatos.listarPaquete()){
 //    System.out.println(paq);
 //}
-for(Paquete paq:PaqueteDatos.busquedaPaquetexPais("Argentina")){
-    System.out.println(paq);
-}
-
-for(Paquete paq:PaqueteDatos.busquedaPaquetexFecha(Date.valueOf("2023-10-05"),Date.valueOf("2023-10-15"))){
-    System.out.println(paq);
-}
+//for(Paquete paq:PaqueteDatos.busquedaPaquetexPais("Argentina")){
+//    System.out.println(paq);
+//}
+//
+//for(Paquete paq:PaqueteDatos.busquedaPaquetexFecha(Date.valueOf("2023-10-05"),Date.valueOf("2023-10-15"))){
+//    System.out.println(paq);
+//}
 
     }
     

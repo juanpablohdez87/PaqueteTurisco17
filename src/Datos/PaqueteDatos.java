@@ -103,7 +103,7 @@ public class PaqueteDatos {
 //
     public static List<Paquete> listarPaquete() {
         List<Paquete> listaA = new ArrayList<>();
-        String sql = "select * from paquete ORDER BY idCiuOrigen";
+        String sql = "select * from paquete";
 
         try {
             ps = con.prepareStatement(sql);
@@ -195,7 +195,7 @@ public class PaqueteDatos {
         
     }
     public static List<Paquete> busquedaPaquetexFecha(Date fecha,Date fecha1){
-      String sqlBusqueda="SELECT paquete.* FROM paquete,alojamiento WHERE paquete.idAlojamiento=alojamiento.idAlojamiento and  fechaIngreso>=? and fechaSalida<=? ORDER BY idCiuOrigen";  
+      String sqlBusqueda="SELECT paquete.* FROM paquete,alojamiento WHERE paquete.idAlojamiento=alojamiento.idAlojamiento and  fechaIngreso>=? and fechaSalida<=?";  
       List<Paquete> listaPaquete = new ArrayList<>();
         try {
             ps=con.prepareStatement(sqlBusqueda);
