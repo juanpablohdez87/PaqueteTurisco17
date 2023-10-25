@@ -103,7 +103,7 @@ public class PaqueteDatos {
 //
     public static List<Paquete> listarPaquete() {
         List<Paquete> listaA = new ArrayList<>();
-        String sql = "select * from paquete";
+        String sql = "select * from paquete ORDER BY idCiuOrigen";
 
         try {
             ps = con.prepareStatement(sql);
@@ -152,7 +152,7 @@ public class PaqueteDatos {
 //    }
 //
     public static void eliminarpaquete(int id) {
-        String sql = "DELETE FROM paquete WHERE idPaquete = ? ";
+        String sql = "DELETE FROM paquete WHERE idPaquete = ?";
 
         try {
             ps = con.prepareStatement(sql);
@@ -171,10 +171,10 @@ public class PaqueteDatos {
     public static List<Paquete> busquedaPaquetexPais(String pais){
         List<Paquete> listaPaquete = new ArrayList<>();
 //        String sql="SELECT * FROM paquete INNER JOIN ciudad ON paquete.idCiuDestino = ciudad.idCiudad WHERE ciudad.pais = ?";
-        String sqlBusqueda="select Paquete.* from Paquete,Ciudad where Paquete.idCiuDestino = Ciudad.idCiudad and Ciudad.pais = ?";
+        String sqlBusqueda="select Paquete.* from Paquete,Ciudad where Paquete.idCiuDestino = Ciudad.idCiudad and Ciudad.pais like '%"+pais+"%' ORDER BY ciudad.nombre";
         try {
             ps=con.prepareStatement(sqlBusqueda);
-            ps.setString(1,pais);
+//            ps.setString(1,pais);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Paquete paquete = new Paquete();
@@ -195,7 +195,7 @@ public class PaqueteDatos {
         
     }
     public static List<Paquete> busquedaPaquetexFecha(Date fecha,Date fecha1){
-      String sqlBusqueda="SELECT paquete.* FROM paquete,alojamiento WHERE paquete.idAlojamiento=alojamiento.idAlojamiento and  fechaIngreso='?' and fechaSalida='?'";  
+      String sqlBusqueda="SELECT paquete.* FROM paquete,alojamiento WHERE paquete.idAlojamiento=alojamiento.idAlojamiento and  fechaIngreso>=? and fechaSalida<=? ORDER BY idCiuOrigen";  
       List<Paquete> listaPaquete = new ArrayList<>();
         try {
             ps=con.prepareStatement(sqlBusqueda);

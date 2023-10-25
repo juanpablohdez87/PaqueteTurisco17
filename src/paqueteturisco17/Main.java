@@ -27,11 +27,11 @@ public class Main {
 //        Pasaje pasaje = new Pasaje(20,Transporte.TREN,5422.88,ciudad,true);
 //        
 //        PasajeDatos.modificarPasaje(pasaje);
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Menu().setVisible(true);
-//            }
-//        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Menu().setVisible(true);
+            }
+        });
 //        Paquete paquete1 = PaqueteDatos.buscarPaquetePorId(9);
 //        Cliente cliente = new Cliente(5,"Martin", "Coleman", 4589632, 487956, paquete1,2, 4856.32,false);
 //         ClientesDatos.guardarCliente(cliente);

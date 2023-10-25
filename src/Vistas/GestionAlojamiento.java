@@ -30,7 +30,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
-            if (columna != 0 && columna != 7) {
+            if (columna != 0 && columna!=1 && columna != 7) {
                 return true;
             } else {
                 return false;
@@ -154,20 +154,20 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(153, 0, 51));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setText("Gestion De Alojamiento");
+        jLabel1.setOpaque(true);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 153, 0));
         jLabel2.setText("Ciudad Destino:");
+        jLabel2.setOpaque(true);
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 153, 0));
         jLabel3.setText("Fecha de ingreso:");
+        jLabel3.setOpaque(true);
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 153, 0));
         jLabel5.setText("Servicio:");
+        jLabel5.setOpaque(true);
 
         jbAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add.png"))); // NOI18N
         jbAgregar.setText("Agregar");
@@ -191,8 +191,8 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 153, 0));
         jLabel7.setText("Buscar Alojamiento por Ciudad:");
+        jLabel7.setOpaque(true);
 
         jbModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/update_file.png"))); // NOI18N
         jbModificar.setText("Actualizar");
@@ -211,12 +211,12 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 153, 0));
         jLabel6.setText("Fecha de Salida:");
+        jLabel6.setOpaque(true);
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 153, 0));
         jLabel8.setText("Importe Diario:");
+        jLabel8.setOpaque(true);
 
         jbNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/new-page.png"))); // NOI18N
         jbNuevo.setText("Nuevo");
@@ -233,8 +233,8 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 153, 0));
         jLabel4.setText("$");
+        jLabel4.setOpaque(true);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/exit.png"))); // NOI18N
         jButton1.setText("Salir");
@@ -245,11 +245,12 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 153, 0));
         jLabel9.setText("Alojamiento:");
+        jLabel9.setOpaque(true);
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel10.setText("Crear Alojamiento");
+        jLabel10.setOpaque(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

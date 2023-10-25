@@ -81,8 +81,8 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(153, 0, 51));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 153, 0));
         jLabel2.setText("Nombre:");
+        jLabel2.setOpaque(true);
 
         jtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -91,8 +91,8 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 153, 0));
         jLabel3.setText("Pais:");
+        jLabel3.setOpaque(true);
 
         jtPais.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -101,8 +101,8 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 153, 0));
         jLabel5.setText("Provincia:");
+        jLabel5.setOpaque(true);
 
         jtProvincia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -127,8 +127,8 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 153, 0));
         jLabel7.setText("Buscar  Pais:");
+        jLabel7.setOpaque(true);
 
         jtBuscarP.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -137,8 +137,8 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 153, 0));
         jLabel1.setText("Gestion De Ciudad");
+        jLabel1.setOpaque(true);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -170,8 +170,8 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 153, 0));
         jLabel4.setText("Crear Ciudad");
+        jLabel4.setOpaque(true);
 
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jtNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);

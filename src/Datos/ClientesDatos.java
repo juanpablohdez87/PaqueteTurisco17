@@ -117,7 +117,7 @@ public class ClientesDatos {
 
     public static List<Cliente> listaclientes() {
         List<Cliente> listaclient = new ArrayList<>();
-        String sql = "select * from cliente";
+        String sql = "select * from cliente ORDER BY nombre";
 
         try {
             ps = con.prepareStatement(sql);

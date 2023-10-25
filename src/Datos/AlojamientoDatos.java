@@ -142,7 +142,7 @@ public class AlojamientoDatos {
 
     public static List<Alojamiento> listaAlojamientos() {
         List<Alojamiento> listaAlo = new ArrayList<>();
-        String sql = "select * from alojamiento";
+        String sql = "select * from alojamiento ORDER BY fechaIngreso";
 
         try {
             ps = con.prepareStatement(sql);
@@ -175,7 +175,7 @@ public class AlojamientoDatos {
     }
     public static List<Alojamiento> listaAlojamientosxCiudadActiva() {
         List<Alojamiento> listaAlo = new ArrayList<>();
-        String sql = "select * from alojamiento where estado = 1";
+        String sql = "select * from alojamiento where estado = 1 ORDER BY fechaIngreso";
 
         try {
             ps = con.prepareStatement(sql);
@@ -211,7 +211,7 @@ public class AlojamientoDatos {
         return new ArrayList<>(); 
     }
         List<Alojamiento> listaAlo = new ArrayList<>();
-        String sql = "select * from alojamiento where estado = 1 and idciuDestino=?";
+        String sql = "select * from alojamiento where estado = 1 and idciuDestino=? ORDER BY fechaIngreso";
 
         try {
             ps = con.prepareStatement(sql);
