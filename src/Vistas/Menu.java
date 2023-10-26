@@ -77,7 +77,7 @@ public class Menu extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/adm.png"))); // NOI18N
         jMenu1.setText("Administrador");
 
-        jMenuItem1.setText("GestionCiudad");
+        jMenuItem1.setText("Gestión de Ciudades");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -85,7 +85,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("GestionAlojamiento");
+        jMenuItem2.setText("Gestión de Alojamientos");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -114,7 +114,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem6);
 
-        jMenuItem7.setText("Cliente y Gestion de Paquete");
+        jMenuItem7.setText("Clientes y Gestión de Paquetes");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);

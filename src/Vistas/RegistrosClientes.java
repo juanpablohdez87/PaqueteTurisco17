@@ -48,8 +48,9 @@ public class RegistrosClientes extends javax.swing.JInternalFrame {
         jActualizar = new javax.swing.JButton();
         jrBoton = new javax.swing.JRadioButton();
 
-        setTitle("Resgistros de Clientes");
+        setTitle("Registros de Clientes");
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Reservas Abonadas");
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -65,6 +66,7 @@ public class RegistrosClientes extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable);
 
+        jbEliminar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,6 +74,7 @@ public class RegistrosClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        jActualizar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jActualizar.setText("Actualizar");
         jActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,7 +106,7 @@ public class RegistrosClientes extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jrBoton)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +156,7 @@ public class RegistrosClientes extends javax.swing.JInternalFrame {
             ClientesDatos.eliminarCliente(idC);
             modelo.removeRow(filaSelecionada);
         } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila antes de Eliminar Ciudad", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila antes de Eliminar un Cliente", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
@@ -192,7 +195,7 @@ public class RegistrosClientes extends javax.swing.JInternalFrame {
         modelo.addColumn("IdCliente");
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellido");
-        modelo.addColumn("Telefono");
+        modelo.addColumn("Teléfono");
         modelo.addColumn("DNI");
         modelo.addColumn("ID Paquete");
         modelo.addColumn("Cantidad De Personas");

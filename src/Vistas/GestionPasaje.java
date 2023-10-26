@@ -305,6 +305,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
        limpiar();
       }catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Debe ingresar números reales positivos");
+                limpiar();
                }
     }//GEN-LAST:event_jBCrearActionPerformed
 

@@ -107,6 +107,12 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         jLabel12.setText("Cantidad de Personas:");
         jLabel12.setOpaque(true);
 
+        jlPersonas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jlPersonasKeyTyped(evt);
+            }
+        });
+
         jLabel13.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel13.setText("Importe Total del Paquete:");
         jLabel13.setOpaque(true);
@@ -159,7 +165,6 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
 
         radioSino.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         radioSino.setText("Si / No");
-        radioSino.setOpaque(true);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
@@ -433,7 +438,7 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
 
     private boolean control() {
         if (jtfApellido.getText().isEmpty() || jtfNombre.getText().isEmpty() || this.jtfTelefono.getText().isEmpty() || this.jtfDni.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No debe quedar campos vacíos");
+            JOptionPane.showMessageDialog(null, "No deben quedar campos vacíos");
             return false;
         }
         return true;
@@ -472,15 +477,15 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
             if (filaSelec != -1 && !this.jlPersonas.getText().isEmpty()) {
                 Double imp = Double.valueOf(jTable.getValueAt(filaSelec, 7).toString());
                 double impTotal = imp * Double.parseDouble(this.jlPersonas.getText().toString());
-                jtxCosto.setText(impTotal + "");
+                jtxCosto.setText(Math.round(impTotal*100.0)/100.0 + "");
                 int idP = Integer.parseInt(jTable.getValueAt(filaSelec, 0).toString());
                 this.jlidPaq.setText(idP + "");
             } else {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar una fila o Ingresar un numero en cantidad de Personas");
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una fila o Ingresar un número en cantidad de Personas");
                 habilitarCliente(false);
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "En la casilla de Cantidad de Personas solo ingrese Numeros", "Loco Fíjate", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "En la casilla de Cantidad de Personas solo ingrese Números POSITIVOS", "Loco Fíjate", JOptionPane.ERROR_MESSAGE);
             habilitarCliente(false);
             this.jlPersonas.setText("");
         }
@@ -552,15 +557,23 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
                     limpiarFecha();
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "No Deben quedar campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No Deben quedar campos Vacíos", "Error", JOptionPane.ERROR_MESSAGE);
                 limpiarFecha();
             }
 
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No Deben quedar campos Vacios " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No Deben quedar campos Vacíos " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             limpiarFecha();
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jlPersonasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jlPersonasKeyTyped
+         char c = evt.getKeyChar();
+        // Verifica si el carácter es un dígito (0-9)
+        if (!Character.isDigit(c)) {
+            evt.consume();  // Si no es un dígito, consumir el evento
+        }
+    }//GEN-LAST:event_jlPersonasKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

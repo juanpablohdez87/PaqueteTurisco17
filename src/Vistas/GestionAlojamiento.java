@@ -398,7 +398,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         // Agregar
         try {
             if (this.jtImporteDiario.getText().isEmpty() || this.jdateFechaIngre.getDate() == null || this.jdateFechaSalida.getDate() == null) {
-                JOptionPane.showMessageDialog(null, "No debe quedar campos vacíos", "Loco Fíjate", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No deben quedar campos vacíos", "Loco Fíjate", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             Ciudad ciu = (Ciudad) this.jcCiuDestino.getSelectedItem();
@@ -412,6 +412,12 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
             TipoAlojamiento alo = (TipoAlojamiento) this.jcAlo.getSelectedItem();
             Servicio ser = (Servicio) this.jcServicio.getSelectedItem();
             double imp = Double.parseDouble(this.jtImporteDiario.getText());
+            if(imp<0){
+                JOptionPane.showMessageDialog(null, "Para el importe debe agregar números positivos");
+                limpiar();
+            }else{
+                
+            
             boolean est = true;
             // Convertir java.util.Date a java.sql.Date
             java.sql.Date sqlDateIng = new java.sql.Date(fIng.getTime());
@@ -422,8 +428,10 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
             limpiar();
             modelo.setRowCount(0);
             cargarTabla();
+            }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Solo números " + e.getMessage(), "Date cuenta capo solo NUMEROS", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Solo números positivos" + e.getMessage(), "Date cuenta capo solo NUMEROS", JOptionPane.ERROR_MESSAGE);
+            limpiar();
         }
         textMod(false);
     }//GEN-LAST:event_jbAgregarActionPerformed
@@ -521,7 +529,6 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
     private void textMod(boolean ok) {
         this.jtImporteDiario.setEditable(ok);
         this.jcCiuDestino.setEnabled(ok);
-        this.jcAlo.setEditable(ok);
         this.jcAlo.setEnabled(ok);
         this.jcServicio.setEnabled(ok);
         this.jdateFechaIngre.setEnabled(ok);
@@ -531,12 +538,12 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
 
     private void armarCabezera() {
         modelo.addColumn("IdAlojamiento");
-        modelo.addColumn("ciuDestino");
-        modelo.addColumn("fechaIngreso");
-        modelo.addColumn("fechaSalida");
-        modelo.addColumn("alojamiento");
-        modelo.addColumn("servicio");
-        modelo.addColumn("importeDiario");
+        modelo.addColumn("Destino");
+        modelo.addColumn("Ingreso");
+        modelo.addColumn("Salida");
+        modelo.addColumn("Alojamiento");
+        modelo.addColumn("Servicio");
+        modelo.addColumn("Importe Diario");
         modelo.addColumn("Activo");
         this.jTable1.setModel(modelo);
     }

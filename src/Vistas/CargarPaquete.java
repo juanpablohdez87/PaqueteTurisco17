@@ -242,6 +242,7 @@ public class CargarPaquete extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearActionPerformed
+       try{
         if (jcbCiuOrigen.getSelectedItem() != null || jcbPasaje.getSelectedItem() != null || jcbAlojamiento.getSelectedItem() != null || jcbCiuDestino.getSelectedItem() != null) {
             Ciudad ciudadOrigen = (Ciudad) jcbCiuOrigen.getSelectedItem();
             Ciudad ciudadDestino = (Ciudad) jcbCiuDestino.getSelectedItem();
@@ -259,6 +260,10 @@ public class CargarPaquete extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "No debe quedar campos vacíos");
             limpiar();
         }
+       }catch(NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "No debe quedar campos vacíos");
+            limpiar();
+                }
     }//GEN-LAST:event_jbCrearActionPerformed
 
     private void jcbCiuOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCiuOrigenActionPerformed
