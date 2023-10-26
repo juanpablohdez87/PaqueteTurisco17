@@ -117,8 +117,35 @@ public class ClientesDatos {
 
     public static List<Cliente> listaclientes() {
         List<Cliente> listaclient = new ArrayList<>();
-        String sql = "select * from cliente ORDER BY nombre";
+        String sql = "select * from cliente where abonado = 1 ORDER BY nombre";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente client = new Cliente();
+                client.setIdCliente(rs.getInt("idCliente"));
+                client.setNombre(rs.getString("nombre"));
+                client.setApellido(rs.getString("apellido"));
+                client.setDni(rs.getInt("dni"));
+                client.setTelefono(rs.getInt("telefono"));
+                Paquete paquete = PaqueteDatos.buscarPaquetePorId(rs.getInt("idPaquete"));
+                client.setPaquete(paquete);
+                client.setCantPersonas(rs.getInt("cantPersonas"));
+                client.setImporteTotal(rs.getDouble("importeTotal"));
+                client.setAbonado(rs.getBoolean("abonado"));
+                listaclient.add(client);
+            }
+            ps.close();
 
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceso de datos de cliente" + e.getMessage());
+        }
+        return listaclient;
+    }
+    
+    public static List<Cliente> listaclientesNoAbonados() {
+        List<Cliente> listaclient = new ArrayList<>();
+        String sql = "select * from cliente where abonado = 0 ORDER BY nombre";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();

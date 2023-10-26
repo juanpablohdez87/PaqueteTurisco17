@@ -92,8 +92,8 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         jlidPaq = new javax.swing.JLabel();
         jtxCosto = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jfechaDesde = new com.toedter.calendar.JDateChooser();
+        jfechaHasta = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jbnew = new javax.swing.JButton();
@@ -181,6 +181,11 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         });
 
         jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/search_icon.png"))); // NOI18N
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -306,11 +311,11 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jfechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(30, 30, 30)
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jfechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jbBuscar)))))
                         .addContainerGap(15, Short.MAX_VALUE))))
@@ -334,9 +339,9 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jfechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jfechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
@@ -523,11 +528,43 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jtfDniKeyTyped
 
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // Buscar por fechas
+        Date fechaDesde = this.jfechaDesde.getDate();
+        Date fechaHasta = this.jfechaHasta.getDate();
+        java.sql.Date sqlDateIng = new java.sql.Date(fechaDesde.getTime());
+        java.sql.Date sqlDateSal = new java.sql.Date(fechaHasta.getTime());
+        modelo.setRowCount(0);
+        try {
+            if (fechaDesde != null && fechaHasta != null) { // hay que revisar los campos vacios <Condicion>
+                if (!fechaDesde.after(fechaHasta)) {
+                    for (Paquete paq : PaqueteDatos.busquedaPaquetexFecha(sqlDateIng, sqlDateSal)) {
+                        int idP = paq.getIdPaquete();
+                        String ciuDestino = paq.getCiuDestino().getNombre();
+                        Transporte trans = paq.getPasaje().getTipoTransporte();
+                        importe(paq);
+                        String ciuOrigen = paq.getCiuOrigen().getNombre();
+                        TipoAlojamiento aloj = paq.getAlojamiento().getAlojamiento();
+                        modelo.addRow(new Object[]{idP, ciuOrigen, trans, ciuDestino, aloj, paq.getAlojamiento().getFechaIngreso(), paq.getAlojamiento().getFechaSalida(), Math.round(temp * 100.0) / 100.0, temporada});
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "La Fecha de ingreso DEBE SER anterior a la fecha de salida", "Error", JOptionPane.ERROR_MESSAGE);
+                    limpiarFecha();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No Deben quedar campos Vacios", "Error", JOptionPane.ERROR_MESSAGE);
+                limpiarFecha();
+            }
+
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "No Deben quedar campos Vacios " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            limpiarFecha();
+        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -547,6 +584,8 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JButton jbnew;
+    private com.toedter.calendar.JDateChooser jfechaDesde;
+    private com.toedter.calendar.JDateChooser jfechaHasta;
     private javax.swing.JTextField jlPersonas;
     private javax.swing.JLabel jlidPaq;
     private javax.swing.JTextField jtfApellido;
@@ -587,9 +626,9 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         jTable.setRowSorter(orden);
     }
 
-    private void limpiar() {
-        jtfDni.setText("");
-        jtfTelefono.setText("");
+    private void limpiarFecha() {
+        this.jfechaDesde.setDate(null);
+        this.jfechaHasta.setDate(null);
     }
 
     private void limpiarTodo() {
@@ -628,13 +667,13 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         switch (op) {
             case 0:
                 jtfBuscar.setEnabled(true);
-                jDateChooser1.setEnabled(false);
-                jDateChooser2.setEnabled(false);
+                jfechaDesde.setEnabled(false);
+                jfechaHasta.setEnabled(false);
                 jbBuscar.setEnabled(false);
                 break;
             case 1:
-                jDateChooser1.setEnabled(true);
-                jDateChooser2.setEnabled(true);
+                jfechaDesde.setEnabled(true);
+                jfechaHasta.setEnabled(true);
                 jtfBuscar.setEnabled(false);
                 jbBuscar.setEnabled(true);
                 break;
@@ -645,8 +684,8 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
 
     private void habilitar() {
         jtfBuscar.setEnabled(false);
-        jDateChooser1.setEnabled(false);
-        jDateChooser2.setEnabled(false);
+        jfechaDesde.setEnabled(false);
+        jfechaHasta.setEnabled(false);
         jbBuscar.setEnabled(false);
     }
 
