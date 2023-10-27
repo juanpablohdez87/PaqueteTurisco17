@@ -569,10 +569,12 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "La Fecha de ingreso DEBE SER anterior a la fecha de salida", "Error", JOptionPane.ERROR_MESSAGE);
                 limpiarFecha();
+                cargarTabla();
             }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "No deben quedar campos vacíos", "Error", JOptionPane.ERROR_MESSAGE);
             limpiarFecha();
+            cargarTabla();
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 

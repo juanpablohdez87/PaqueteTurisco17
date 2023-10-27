@@ -3,6 +3,7 @@ package Vistas;
 import Datos.ClientesDatos;
 import Datos.PaqueteDatos;
 import Entidades.Cliente;
+import Entidades.Paquete;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.List;
@@ -20,7 +21,7 @@ public class RegistrosClientes extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
-            if (columna == 8) {
+            if (columna != 0&&columna !=7&&columna!=5) {
                 return true;
             } else {
                 return false;
@@ -193,6 +194,7 @@ public class RegistrosClientes extends javax.swing.JInternalFrame {
 
     private void jActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActualizarActionPerformed
         // Actualizar
+        try{
         int filaSelecionada = this.jTable.getSelectedRow();
         if (filaSelecionada != -1) { // Verifica si se ha seleccionado una fila válida
             int idC = Integer.parseInt(modelo.getValueAt(filaSelecionada, 0).toString());
@@ -202,13 +204,32 @@ public class RegistrosClientes extends javax.swing.JInternalFrame {
             int d = Integer.parseInt(modelo.getValueAt(filaSelecionada, 4).toString());
             int idP = Integer.parseInt(modelo.getValueAt(filaSelecionada, 5).toString());
             int cantP = Integer.parseInt(modelo.getValueAt(filaSelecionada, 6).toString());
+            if(tel<0||d<0||cantP<0){
+                throw new IllegalArgumentException("Número negativo no permitido");
+            }
             double impT = Double.parseDouble(modelo.getValueAt(filaSelecionada, 7).toString());
             boolean abon = Boolean.parseBoolean(modelo.getValueAt(filaSelecionada, 8).toString());
-            ClientesDatos.modificarclientes(new Cliente(idC, nom, apell, tel, d, PaqueteDatos.buscarPaquetePorId(idP), cantP, impT, abon));
+            if(soloLetras(nom)&&soloLetras(apell)){
+                 Cliente c=ClientesDatos.buscarClientes(idC);
+                 
+                 ClientesDatos.modificarclientes(new Cliente(idC, nom, apell, tel, d, PaqueteDatos.buscarPaquetePorId(idP), cantP, (impT/c.getCantPersonas())*cantP, abon));
+                 modelo.setRowCount(0);
+                 cargarTabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "Ingrese valores de tipo texto");
+                modelo.setRowCount(0);
+                cargarTabla();
+            }
+            
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila antes de intentar actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         modelo.fireTableDataChanged();
+        }catch(IllegalArgumentException e){
+           JOptionPane.showMessageDialog(null, "Debe ingresar números enteros positivos", "Error", JOptionPane.ERROR_MESSAGE);
+           modelo.setRowCount(0);
+           cargarTabla();
+        }
     }//GEN-LAST:event_jActualizarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -270,5 +291,8 @@ public class RegistrosClientes extends javax.swing.JInternalFrame {
             boolean abon = client.isAbonado();
             modelo.addRow(new Object[]{idC, nom, apell, tel, dni, idP, cantP, impT, abon});
         }
+    }
+    private boolean soloLetras(String palabra){
+        return palabra.matches("[a-zA-Z ]+");
     }
 };

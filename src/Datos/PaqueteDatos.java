@@ -70,37 +70,7 @@ public class PaqueteDatos {
         }
         return paquete;
     }
-//
-//    public static Paquete buscarPaquetePorCiudestino(int dni) {
-//
-//        String sql = "select idPaquete, Ciuorigen, Ciudestino, Alojamiento, Pasaje from paquete where Ciudestino = ? and estado = 1";
-//        Paquete Paquete = new Paquete();
-//
-//        try {
-//            ps = con.prepareStatement(sql);
-//            int Ciuorigen = 0;
-//            ps.setInt(1, Ciuorigen);
-//            rs = ps.executeQuery();
-//            if (rs.next()) {
-//                paquete.setIdPaquete(rs.getInt("idPaquete"));
-//                paquete.setCiuorigen(rs.getInt("Ciuorigen"));
-//                paquete.setCiudestino(rs.getString("Ciudestino"));
-//                paquete.setalojamiento(rs.getString("alojamiento"));
-//                paquete.pasaje(rs.getDate("pasaje").toLocalDate());
-//                paquete.setEstado(true);
-//
-//            } else {
-//                JOptionPane.showMessageDialog(null, "El Paquete no esta disponible o no existe");
-//            }
-//            ps.close();
-//
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, "Error: Acceso Paquete");
-//        }
-//        Paquete paquete = null;
-//        return paquete;
-//    }
-//
+
     public static List<Paquete> listarPaquete() {
         List<Paquete> listaA = new ArrayList<>();
         String sql = "select * from paquete";
@@ -122,10 +92,6 @@ public class PaqueteDatos {
             JOptionPane.showMessageDialog(null, "Error: Acceso a la tabla de paquetes");
         }
 
-//        System.out.println("---> Lista de paquetes Registrada");
-//        for (Paquete paq : listaA) {
-//            System.out.println(paq.toString());
-//        }
         return listaA;
     }
 //
@@ -170,16 +136,13 @@ public class PaqueteDatos {
     }
     public static List<Paquete> busquedaPaquetexPais(String pais){
         List<Paquete> listaPaquete = new ArrayList<>();
-//        String sql="SELECT * FROM paquete INNER JOIN ciudad ON paquete.idCiuDestino = ciudad.idCiudad WHERE ciudad.pais = ?";
         String sqlBusqueda="select Paquete.* from Paquete,Ciudad where Paquete.idCiuDestino = Ciudad.idCiudad and Ciudad.pais like '%"+pais+"%' ORDER BY ciudad.nombre";
         try {
             ps=con.prepareStatement(sqlBusqueda);
-//            ps.setString(1,pais);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Paquete paquete = new Paquete();
-                paquete.setIdPaquete(rs.getInt("idPaquete"));
-                
+                paquete.setIdPaquete(rs.getInt("idPaquete"));              
                 paquete.setCiuOrigen(CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuOrigen")));
                 paquete.setCiuDestino(CiudadDatos.buscarCiudadPorId(rs.getInt("idCiuDestino")));
                 paquete.setAlojamiento(AlojamientoDatos.buscarAlojamiento(rs.getInt("idAlojamiento")));

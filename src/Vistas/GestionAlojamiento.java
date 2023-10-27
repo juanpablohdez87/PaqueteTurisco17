@@ -433,6 +433,7 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         // Modificar
+        try{
         int filaSelecionada = this.jTable1.getSelectedRow();
         if (filaSelecionada != -1) { // Verifica si se ha seleccionado una fila válida
             int idAlo = Integer.parseInt(modelo.getValueAt(filaSelecionada, 0).toString());
@@ -454,6 +455,9 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
             TipoAlojamiento alo = (TipoAlojamiento) modelo.getValueAt(filaSelecionada, 4);
             Servicio ser = (Servicio) modelo.getValueAt(filaSelecionada, 5);
             double imp = Double.parseDouble(modelo.getValueAt(filaSelecionada, 6).toString());
+            if(imp<0){
+                throw new IllegalArgumentException("Número negativo no permitido");
+            }
             String est = modelo.getValueAt(filaSelecionada, 7).toString();
 
             AlojamientoDatos.modificarAlojamiento(new Alojamiento(idAlo, CiudadDatos.buscarCiudad(ciu), sqlDateInicio.toLocalDate(), sqlDateSalida.toLocalDate(), alo, ser, imp, activo1(est)));
@@ -461,7 +465,16 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila antes de intentar actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         modelo.fireTableDataChanged();
-
+        
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "Debe ingresar números reales positivos", "Error", JOptionPane.ERROR_MESSAGE);
+           modelo.setRowCount(0);
+           cargarTabla();
+        }catch(IllegalArgumentException e){
+             JOptionPane.showMessageDialog(null, "Debe ingresar números reales positivos", "Error", JOptionPane.ERROR_MESSAGE);
+           modelo.setRowCount(0);
+           cargarTabla();
+        }
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jcCiuBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcCiuBuscarActionPerformed

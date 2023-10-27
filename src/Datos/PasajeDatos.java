@@ -136,9 +136,6 @@ public class PasajeDatos {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
         }
 
-        for (Pasaje pas : listaPasaje) {
-            System.out.println(pas.toString());
-        }
         return listaPasaje;
     }
     
@@ -165,9 +162,6 @@ public class PasajeDatos {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla");
         }
 
-//        for (Pasaje pas : listaPasaje) {
-//            System.out.println(pas.toString());
-//        }
         return listaPasaje;
            
     }

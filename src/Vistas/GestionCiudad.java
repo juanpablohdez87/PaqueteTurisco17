@@ -409,12 +409,20 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
             String nom = modelo.getValueAt(filaSelecionada, 1).toString();
             String pai = modelo.getValueAt(filaSelecionada, 2).toString();
             String pro = modelo.getValueAt(filaSelecionada, 3).toString();
-            String est = modelo.getValueAt(filaSelecionada, 3).toString();
-            CiudadDatos.modificarCiudad(new Ciudad(idCiu, nom, pai, activo1(est), pro));
+            String est = modelo.getValueAt(filaSelecionada, 4).toString();
+            if(soloLetras(nom)&&soloLetras(pai)&&soloLetras(pro)){
+                CiudadDatos.modificarCiudad(new Ciudad(idCiu, nom, pai, activo1(est), pro));
+                modelo.fireTableDataChanged();
+            }else{
+                JOptionPane.showMessageDialog(null, "Ingrese valores de tipo texto");
+                modelo.setRowCount(0);
+                cargarTabla();
+            }
+            
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila antes de intentar actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        modelo.fireTableDataChanged();
+        
     }//GEN-LAST:event_jbModificarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -496,5 +504,8 @@ public class GestionCiudad extends javax.swing.JInternalFrame {
             }
         }
         return false;
+    }
+    private boolean soloLetras(String palabra){
+        return palabra.matches("[a-zA-Z ]+");
     }
 }

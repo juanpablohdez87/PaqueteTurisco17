@@ -355,7 +355,6 @@
               <Font name="Arial" size="18" style="1"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">

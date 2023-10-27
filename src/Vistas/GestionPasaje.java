@@ -47,15 +47,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
         limpiar();
         agregarCheckBox(4,jTable1);
         agregarcomboBox(1,jTable1);
-//    TableColumn tc = jTable1.getColumnModel().getColumn(4);
-//    tc.setCellEditor(jTable1.getDefaultEditor(Boolean.class));//establesco la edición de celdas con un checkbox en la columna que se pasará por parámetro en el constructor.Para valores booleanos, el editor predeterminado generalmente utiliza una casilla de verificación (checkbox) que permite al usuario cambiar el valor booleano (verdadero o falso) de la celda.
-//    tc.setCellRenderer(jTable1.getDefaultRenderer(Boolean.class));//permite mostrar casillas de verificación en lugar de valores booleanos en la celda. 
-//    tc = jTable1.getColumnModel().getColumn(1);
-//    JComboBox comboBox = new JComboBox();
-//    comboBox.addItem(Transporte.TREN);
-//    comboBox.addItem(Transporte.AVIÓN);
-//    comboBox.addItem(Transporte.COLECTIVO);
-//    tc.setCellEditor(new DefaultCellEditor(comboBox));
+        cargarTabla();
     } 
 
     /**
@@ -320,6 +312,7 @@ private DefaultTableModel modelo = new DefaultTableModel(){
        Transporte trans=(Transporte)jCBTrans.getSelectedItem();
        Pasaje pasaje = new Pasaje(trans, precio, ciu, true);
        PasajeDatos.guardarPasaje(pasaje);
+       cargarTabla();
        limpiar();
       }catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Debe ingresar números reales positivos");
@@ -424,5 +417,16 @@ private void comboCiudad(){
     comboBox.addItem(Transporte.AVIÓN);
     comboBox.addItem(Transporte.COLECTIVO);
     tc.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+    private void cargarTabla(){
+        modelo.setRowCount(0);
+        for (Pasaje pas:PasajeDatos.listaPas()) {
+                int pasaje=pas.getIdPasaje();
+                Transporte trans=(Transporte)pas.getTipoTransporte();
+                double precio=pas.getImporte();
+                String ciu=pas.getNomCiuOrigen().getNombre();
+                boolean estado=pas.isEstado();
+                modelo.addRow(new Object[]{pasaje,trans,precio,ciu,estado});
+            }
     }
 }//Fin class
