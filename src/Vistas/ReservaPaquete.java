@@ -100,7 +100,6 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("Reserva de Paquete");
 
         jLabel12.setBackground(new java.awt.Color(204, 204, 204));
@@ -495,7 +494,7 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
             if (filaSelec != -1 && !this.jlPersonas.getText().isEmpty()) {
                 Double imp = Double.valueOf(jTable.getValueAt(filaSelec, 7).toString());
                 double impTotal = imp * Double.parseDouble(this.jlPersonas.getText().toString());
-                jtxCosto.setText(Math.round(impTotal*100.0)/100.0 + "");
+                jtxCosto.setText(Math.round(impTotal * 100.0) / 100.0 + "");
                 int idP = Integer.parseInt(jTable.getValueAt(filaSelec, 0).toString());
                 this.jlidPaq.setText(idP + "");
             } else {
@@ -555,38 +554,30 @@ public class ReservaPaquete extends javax.swing.JInternalFrame {
         // Buscar por fechas
         Date fechaDesde = this.jfechaDesde.getDate();
         Date fechaHasta = this.jfechaHasta.getDate();
-        java.sql.Date sqlDateIng = new java.sql.Date(fechaDesde.getTime());
-        java.sql.Date sqlDateSal = new java.sql.Date(fechaHasta.getTime());
         modelo.setRowCount(0);
         try {
-            if (fechaDesde != null && fechaHasta != null) { // hay que revisar los campos vacios <Condicion>
-                if (!fechaDesde.after(fechaHasta)) {
-                    for (Paquete paq : PaqueteDatos.busquedaPaquetexFecha(sqlDateIng, sqlDateSal)) {
-                        int idP = paq.getIdPaquete();
-                        String ciuDestino = paq.getCiuDestino().getNombre();
-                        Transporte trans = paq.getPasaje().getTipoTransporte();
-                        importe(paq);
-                        String ciuOrigen = paq.getCiuOrigen().getNombre();
-                        TipoAlojamiento aloj = paq.getAlojamiento().getAlojamiento();
-                        modelo.addRow(new Object[]{idP, ciuOrigen, trans, ciuDestino, aloj, paq.getAlojamiento().getFechaIngreso(), paq.getAlojamiento().getFechaSalida(), Math.round(temp * 100.0) / 100.0, temporada});
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "La Fecha de ingreso DEBE SER anterior a la fecha de salida", "Error", JOptionPane.ERROR_MESSAGE);
-                    limpiarFecha();
+            if (!fechaDesde.after(fechaHasta)) {
+                for (Paquete paq : PaqueteDatos.busquedaPaquetexFecha(new java.sql.Date(fechaDesde.getTime()), new java.sql.Date(fechaHasta.getTime()))) {
+                    int idP = paq.getIdPaquete();
+                    String ciuDestino = paq.getCiuDestino().getNombre();
+                    Transporte trans = paq.getPasaje().getTipoTransporte();
+                    importe(paq);
+                    String ciuOrigen = paq.getCiuOrigen().getNombre();
+                    TipoAlojamiento aloj = paq.getAlojamiento().getAlojamiento();
+                    modelo.addRow(new Object[]{idP, ciuOrigen, trans, ciuDestino, aloj, paq.getAlojamiento().getFechaIngreso(), paq.getAlojamiento().getFechaSalida(), Math.round(temp * 100.0) / 100.0, temporada});
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "No Deben quedar campos Vacíos", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "La Fecha de ingreso DEBE SER anterior a la fecha de salida", "Error", JOptionPane.ERROR_MESSAGE);
                 limpiarFecha();
             }
-
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "No Deben quedar campos Vacíos " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No deben quedar campos vacíos", "Error", JOptionPane.ERROR_MESSAGE);
             limpiarFecha();
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jlPersonasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jlPersonasKeyTyped
-         char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
         // Verifica si el carácter es un dígito (0-9)
         if (!Character.isDigit(c)) {
             evt.consume();  // Si no es un dígito, consumir el evento

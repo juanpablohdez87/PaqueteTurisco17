@@ -5,6 +5,7 @@ import Datos.PaqueteDatos;
 import Entidades.Cliente;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -243,39 +244,31 @@ public class RegistrosClientes extends javax.swing.JInternalFrame {
         boolean abonado = this.jrBoton.isSelected();
         modelo.setRowCount(0);
         if (abonado) {
-            for (Cliente client : ClientesDatos.listaclientes()) {
-                int idC = client.getIdCliente();
-                String nom = client.getNombre();
-                String apell = client.getApellido();
-                int tel = client.getTelefono();
-                int dni = client.getDni();
-                int idP = client.getPaquete().getIdPaquete();
-                int cantP = client.getCantPersonas();
-                double impT = client.getImporteTotal();
-                boolean abon = client.isAbonado();
-                modelo.addRow(new Object[]{idC, nom, apell, tel, dni, idP, cantP, impT, abon});
-            }
+            cargarDatos(ClientesDatos.listaclientes());
         } else {
-            for (Cliente client : ClientesDatos.listaclientesNoAbonados()) {
-                int idC = client.getIdCliente();
-                String nom = client.getNombre();
-                String apell = client.getApellido();
-                int tel = client.getTelefono();
-                int dni = client.getDni();
-                int idP = client.getPaquete().getIdPaquete();
-                int cantP = client.getCantPersonas();
-                double impT = client.getImporteTotal();
-                boolean abon = client.isAbonado();
-                modelo.addRow(new Object[]{idC, nom, apell, tel, dni, idP, cantP, impT, abon});
-            }
+            cargarDatos(ClientesDatos.listaclientesNoAbonados());
         }
     }
-    
-    private void agregarCheckBox(int columna, JTable tabla){
-        
-    TableColumn tc = tabla.getColumnModel().getColumn(columna);
-    tc.setCellEditor(tabla.getDefaultEditor(Boolean.class));
-    tc.setCellRenderer(tabla.getDefaultRenderer(Boolean.class)); 
-}
 
+    private void agregarCheckBox(int columna, JTable tabla) {
+
+        TableColumn tc = tabla.getColumnModel().getColumn(columna);
+        tc.setCellEditor(tabla.getDefaultEditor(Boolean.class));
+        tc.setCellRenderer(tabla.getDefaultRenderer(Boolean.class));
+    }
+
+    private void cargarDatos(List<Cliente> lista) {
+        for (Cliente client : lista) {
+            int idC = client.getIdCliente();
+            String nom = client.getNombre();
+            String apell = client.getApellido();
+            int tel = client.getTelefono();
+            int dni = client.getDni();
+            int idP = client.getPaquete().getIdPaquete();
+            int cantP = client.getCantPersonas();
+            double impT = client.getImporteTotal();
+            boolean abon = client.isAbonado();
+            modelo.addRow(new Object[]{idC, nom, apell, tel, dni, idP, cantP, impT, abon});
+        }
+    }
 };
