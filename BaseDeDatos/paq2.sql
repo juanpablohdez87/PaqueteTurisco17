@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2023 a las 16:56:48
+-- Tiempo de generación: 20-10-2023 a las 16:42:08
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `sistemadepaqueteturisctico`
+-- Base de datos: `sistemadepaqueteturistico`
 --
 
 -- --------------------------------------------------------
@@ -29,13 +29,22 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `alojamiento` (
   `idAlojamiento` int(11) NOT NULL,
+  `idCiuDestino` int(11) NOT NULL,
   `fechaIngreso` date NOT NULL,
   `fechaSalida` date DEFAULT NULL,
-  `estado` tinyint(4) NOT NULL,
-  `servicio` varchar(60) NOT NULL,
+  `tipoAlojamiento` varchar(60) NOT NULL,
+  `servicio` varchar(120) NOT NULL,
   `importeDiario` double NOT NULL,
-  `idCiuDestino` int(11) NOT NULL
+  `estado` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `alojamiento`
+--
+
+INSERT INTO `alojamiento` (`idAlojamiento`, `idCiuDestino`, `fechaIngreso`, `fechaSalida`, `tipoAlojamiento`, `servicio`, `importeDiario`, `estado`) VALUES
+(24, 22, '2023-10-04', '2023-10-19', 'DEPARTAMENTO', 'COMPLETO', 56.36, 1),
+(25, 27, '2023-12-06', '2023-12-28', 'HOTEL', 'TODO_INCLUIDO', 89.63, 1);
 
 -- --------------------------------------------------------
 
@@ -51,6 +60,22 @@ CREATE TABLE `ciudad` (
   `provincia` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `ciudad`
+--
+
+INSERT INTO `ciudad` (`idCiudad`, `nombre`, `pais`, `estado`, `provincia`) VALUES
+(19, 'Lima', 'Peru', 0, 'Lima'),
+(20, 'Montevideo', 'Uruguay', 0, 'Montevideo'),
+(22, 'Viedma', 'Argentina', 1, 'Rio Negro'),
+(23, 'Mar del Plata', 'Argentina', 0, 'BsAs'),
+(24, 'La Boca', 'Argentina', 1, 'BsAs'),
+(25, 'Mar del Plata', 'Argentina', 1, 'BsAs'),
+(26, 'Posadas', 'Argentina', 1, 'Misiones'),
+(27, 'Santiago', 'Chile', 1, 'Santiago'),
+(28, 'Buzios', 'Brasil', 1, 'Rio de Janeiro'),
+(29, 'Montevideo', 'Uruguay', 1, 'Montevideo');
+
 -- --------------------------------------------------------
 
 --
@@ -63,7 +88,10 @@ CREATE TABLE `cliente` (
   `apellido` varchar(60) NOT NULL,
   `telefono` int(11) NOT NULL,
   `dni` int(11) NOT NULL,
-  `idPaquete` int(11) NOT NULL
+  `idPaquete` int(11) NOT NULL,
+  `cantPersonas` int(11) NOT NULL,
+  `importeTotal` double NOT NULL,
+  `abonado` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -75,10 +103,18 @@ CREATE TABLE `cliente` (
 CREATE TABLE `paquete` (
   `idPaquete` int(11) NOT NULL,
   `idCiuOrigen` int(11) NOT NULL,
-  `idCuiDestino` int(11) NOT NULL,
+  `idCiuDestino` int(11) NOT NULL,
   `idAlojamiento` int(60) NOT NULL,
   `idPasaje` int(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `paquete`
+--
+
+INSERT INTO `paquete` (`idPaquete`, `idCiuOrigen`, `idCiuDestino`, `idAlojamiento`, `idPasaje`) VALUES
+(13, 25, 22, 24, 12),
+(14, 29, 27, 25, 10);
 
 -- --------------------------------------------------------
 
@@ -93,6 +129,18 @@ CREATE TABLE `pasaje` (
   `idCiuOrigen` int(11) NOT NULL,
   `estado` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pasaje`
+--
+
+INSERT INTO `pasaje` (`idPasaje`, `tipoTransporte`, `importe`, `idCiuOrigen`, `estado`) VALUES
+(6, 'COLECTIVO', 253.3, 22, 1),
+(8, 'AVIÓN', 782.63, 27, 1),
+(9, 'AVIÓN', 1125.36, 28, 1),
+(10, 'COLECTIVO', 556.88, 29, 1),
+(11, 'TREN', 789, 22, 1),
+(12, 'COLECTIVO', 456.36, 25, 1);
 
 --
 -- Índices para tablas volcadas
@@ -125,7 +173,7 @@ ALTER TABLE `cliente`
 ALTER TABLE `paquete`
   ADD PRIMARY KEY (`idPaquete`),
   ADD KEY `idCiuOrigen` (`idCiuOrigen`),
-  ADD KEY `idCuiDestino` (`idCuiDestino`),
+  ADD KEY `idCuiDestino` (`idCiuDestino`),
   ADD KEY `idAlojamiento` (`idAlojamiento`),
   ADD KEY `idPasaje` (`idPasaje`);
 
@@ -144,31 +192,31 @@ ALTER TABLE `pasaje`
 -- AUTO_INCREMENT de la tabla `alojamiento`
 --
 ALTER TABLE `alojamiento`
-  MODIFY `idAlojamiento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAlojamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `ciudad`
 --
 ALTER TABLE `ciudad`
-  MODIFY `idCiudad` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCiudad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `paquete`
 --
 ALTER TABLE `paquete`
-  MODIFY `idPaquete` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPaquete` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `pasaje`
 --
 ALTER TABLE `pasaje`
-  MODIFY `idPasaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPasaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
@@ -191,7 +239,7 @@ ALTER TABLE `cliente`
 --
 ALTER TABLE `paquete`
   ADD CONSTRAINT `paquete_ibfk_1` FOREIGN KEY (`idCiuOrigen`) REFERENCES `ciudad` (`idCiudad`),
-  ADD CONSTRAINT `paquete_ibfk_2` FOREIGN KEY (`idCuiDestino`) REFERENCES `ciudad` (`idCiudad`),
+  ADD CONSTRAINT `paquete_ibfk_2` FOREIGN KEY (`idCiuDestino`) REFERENCES `ciudad` (`idCiudad`),
   ADD CONSTRAINT `paquete_ibfk_3` FOREIGN KEY (`idAlojamiento`) REFERENCES `alojamiento` (`idAlojamiento`),
   ADD CONSTRAINT `paquete_ibfk_4` FOREIGN KEY (`idPasaje`) REFERENCES `pasaje` (`idPasaje`);
 
